@@ -5,7 +5,10 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
 					window.location = '../index.php'</script>";
 } else {
-	$userName = $_SESSION['nama'];
+	$userName = $_SESSION['username'];
+	$foto = $_SESSION['foto'];
+	$nama = $_SESSION['nama'];
+	$password = $_SESSION['password'];
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -20,16 +23,21 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 		<!-- CSS Libraries -->
-
+		<link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
+		<link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
+		<link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
+		<link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
 		<!-- Template CSS -->
 		<link rel="stylesheet" href="../assets/css/style.css">
 		<link rel="stylesheet" href="../assets/css/components.css">
+		<link rel="stylesheet" href="../node_modules/izitoast/dist/css/iziToast.min.css">
+
 	</head>
 
 	<body>
 		<div id="app">
 			<div class="main-wrapper">
-				<div class="navbar-bg"></div>
+				<div class="navbar-bg" style="background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);"></div>
 				<nav class="navbar navbar-expand-lg main-navbar">
 					<form class="form-inline mr-auto">
 						<ul class="navbar-nav mr-3">
@@ -226,22 +234,16 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 							</div>
 						</li>
 						<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-								<img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-								<div class="d-sm-none d-lg-inline-block">Hi, <?= $userName; ?></div>
+								<img alt="image" src="../assets/upload/<?= $foto; ?>" class="rounded-circle mr-1" style="height: 30px; width: 30px;">
+								<div class="d-sm-none d-lg-inline-block">Hi, <?= $nama; ?></div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right">
 								<div class="dropdown-title">Logged in 5 min ago</div>
-								<a href="features-profile.html" class="dropdown-item has-icon">
+								<a href="" class="dropdown-item has-icon" id="modal-5">
 									<i class="far fa-user"></i> Profile
 								</a>
-								<a href="features-activities.html" class="dropdown-item has-icon">
-									<i class="fas fa-bolt"></i> Activities
-								</a>
-								<a href="features-settings.html" class="dropdown-item has-icon">
-									<i class="fas fa-cog"></i> Settings
-								</a>
 								<div class="dropdown-divider"></div>
-								<a href="../logout.php" class="dropdown-item has-icon text-danger">
+								<a href="../logout.php" id="toastr-2" class="dropdown-item has-icon text-danger">
 									<i class="fas fa-sign-out-alt"></i> Logout
 								</a>
 							</div>
@@ -251,7 +253,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 				<div class="main-sidebar sidebar-style-2">
 					<aside id="sidebar-wrapper">
 						<div class="sidebar-brand">
-							<a href="index.html">Stisla</a>
+							<a href="">REKAM MEDIS</a>
 						</div>
 						<div class="sidebar-brand sidebar-brand-sm">
 							<a href="index.html">St</a>
@@ -278,7 +280,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 								</ul>
 							</li>
 							<div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-								<a href="../logout.php" class="btn btn-primary btn-lg btn-block btn-icon-split">
+								<a href="../logout.php" class="btn btn-lg btn-block btn-icon-split" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%); color: #fff;">
 									<i class="fas fa-sign-out-alt"></i> Logout
 								</a>
 							</div>
@@ -291,20 +293,53 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 						<div class="section-header">
 							<h1>Sistem Informasi Rekam Medis</h1>
 						</div>
-
 						<div class="section-body">
+
+							<?php include '../hal/dashboard.php' ?>
 						</div>
 					</section>
 				</div>
-				<footer class="main-footer">
-					<div class="footer-left">
-						Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauv.al/">Muhamad Nauval Azhar</a>
-					</div>
-					<div class="footer-right">
-						2.3.0
-					</div>
-				</footer>
+
 			</div>
+		</div>
+
+		<!-- Modal Profile -->
+		<form class="modal-part" id="modal-login-part">
+			<div class="form-group">
+				<label>Username</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-envelope"></i>
+						</div>
+					</div>
+					<input value="<?= $userName; ?>" type="text" class="form-control" placeholder="Username" name="username">
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Nama Pengguna</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-lock"></i>
+						</div>
+					</div>
+					<input value="<?= $nama; ?>" type="text" class="form-control" placeholder="Nama Pengguna" name="nama">
+				</div>
+			</div>
+			<div class="form-group">
+				<label>Password</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<div class="input-group-text">
+							<i class="fas fa-lock"></i>
+						</div>
+					</div>
+					<input value="<?= $password; ?>" type="password" class="form-control" placeholder="Password" name="password">
+				</div>
+			</div>
+		</form>
+
 		</div>
 
 		<!-- General JS Scripts -->
@@ -316,12 +351,18 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 		<script src="../assets/js/stisla.js"></script>
 
 		<!-- JS Libraies -->
-
+		<script src="../node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+		<script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+		<script src="../node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+		<script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
+		<script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 		<!-- Template JS File -->
 		<script src="../assets/js/scripts.js"></script>
 		<script src="../assets/js/custom.js"></script>
+		<script src="../assets/js/page/bootstrap-modal.js"></script>
+		<script src="../node_modules/izitoast/dist/js/iziToast.min.js"></script>
 
-		<!-- Page Specific JS File -->
+		<script src="../assets/js/page/index.js"></script>
 	</body>
 
 	</html>

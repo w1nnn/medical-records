@@ -137,10 +137,12 @@ if (isset($_POST['submit'])) {
 		$_SESSION['password'] = $r['password'];
 		$_SESSION['nama'] = $r['nama'];
 		$_SESSION['level'] = $r['level'];
+		$_SESSION['foto'] = $r['foto'];
+		$nama = $_SESSION['nama'];
 		echo "<script>
         iziToast.success({
             title: 'Selamat Datang',
-            message: 'Login Berhasil!',
+            message: '$nama',
             position: 'topRight'
           });
           setTimeout(function(){
