@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include "koneksi/koneksi.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +116,10 @@ session_start();
 
 
 <?php
-include "koneksi/koneksi.php";
+// $login = mysqli_query($conn, "SELECT * FROM tb_login WHERE username = '$username' AND password = '$pass'");
+// $ketemu = mysqli_num_rows($login);
+// $r = mysqli_fetch_array($login);
+// var_dump($r);
 
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
