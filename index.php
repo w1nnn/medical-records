@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +31,7 @@
 						<img src="./assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
 						<h4 class="text-dark font-weight-normal">Log<span class="font-weight-bold">in</span></h4>
 						<!-- <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p> -->
-						<form method="POST" action="cek_login.php" class="needs-validation" novalidate="">
+						<form method="POST" action="" class="needs-validation" novalidate="">
 							<div class="form-group">
 								<label for="username">Username</label>
 								<input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
@@ -109,3 +113,52 @@
 </body>
 
 </html>
+
+
+<?php
+include "koneksi/koneksi.php";
+
+if (isset($_POST['submit'])) {
+	$username = $_POST['username'];
+	$pass     = $_POST['password'];
+
+	// Perhatikan penggunaan mysqli_* untuk koneksi dan query
+	$login = mysqli_query($conn, "SELECT * FROM tb_login WHERE username = '$username' AND password = '$pass'");
+	$ketemu = mysqli_num_rows($login);
+	$r = mysqli_fetch_array($login);
+
+	// Apabila username dan password ditemukan
+	if ($ketemu > 0) {
+
+		$_SESSION['username'] = $r['username'];
+		$_SESSION['password'] = $r['password'];
+		$_SESSION['nama'] = $r['nama'];
+		$_SESSION['level'] = $r['level'];
+		echo "<script>
+        iziToast.success({
+            title: 'Selamat Datang',
+            message: 'Login Berhasil!',
+            position: 'topRight'
+          });
+          setTimeout(function(){
+            window.location.href = 'hal/index.php';
+          }, 2000);
+        </script>";
+	} else if (empty($username) || empty($pass)) {
+		echo "<script>
+        iziToast.warning({
+            title: 'Maaf',
+            message: 'Username atau Password Tidak Boleh Kosong!',
+            position: 'topRight'
+          });
+        </script>";
+	} else {
+		echo "<script>
+        iziToast.warning({
+            title: 'Maaf',
+            message: 'Username atau Password Salah!',
+            position: 'topRight'
+          });
+        </script>";
+	}
+}

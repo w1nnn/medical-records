@@ -1,17 +1,14 @@
 <?php
-/* memasukkan koneksi*/
+/* Memasukkan koneksi */
 require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_GET['no_rekmed'])){
-$no_rekmed = $_GET['no_rekmed'];
 
+/* Memanggil variable dan nilai */
+if (isset($_GET['no_rekmed'])) {
+    $no_rekmed = $_GET['no_rekmed'];
 
-//memasukkan nilai nilai ke dalam table
+    // Memasukkan nilai ke dalam tabel
+    $ubah = mysqli_query($conn, "DELETE FROM tb_rekmed WHERE no_rekmed = '$no_rekmed'");
 
-$ubah = mysql_query("delete from tb_rekmed where no_rekmed = '$no_rekmed'");
-
-echo"<script>window.alert('Data $no_rekmed Sudah Dihapus')
-window.location='data-rekmed.php'</script>";
+    echo "<script>window.alert('Data $no_rekmed Sudah Dihapus');
+    window.location='data-rekmed.php';</script>";
 }
-?>
