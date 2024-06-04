@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon shadow-primary" style="background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
                 <i class="fas fa-archive"></i>
             </div>
             <div class="card-wrap">
@@ -55,7 +55,7 @@
             <div class="card-chart">
                 <canvas id="balance-chart" height="80"></canvas>
             </div>
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon shadow-primary" style="background-color: #FAACA8; background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="card-wrap">
@@ -73,7 +73,7 @@
             <div class="card-chart">
                 <canvas id="sales-chart" height="80"></canvas>
             </div>
-            <div class="card-icon shadow-primary bg-primary">
+            <div class="card-icon shadow-primary" style="background-color: #F4D03F; background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);">
                 <i class="fas fa-shopping-bag"></i>
             </div>
             <div class="card-wrap">

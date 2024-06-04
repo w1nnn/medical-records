@@ -116,11 +116,6 @@ include "koneksi/koneksi.php";
 
 
 <?php
-// $login = mysqli_query($conn, "SELECT * FROM tb_login WHERE username = '$username' AND password = '$pass'");
-// $ketemu = mysqli_num_rows($login);
-// $r = mysqli_fetch_array($login);
-// var_dump($r);
-
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
 	$pass     = $_POST['password'];
@@ -140,14 +135,9 @@ if (isset($_POST['submit'])) {
 		$_SESSION['foto'] = $r['foto'];
 		$nama = $_SESSION['nama'];
 		echo "<script>
-        iziToast.success({
-            title: 'Selamat Datang',
-            message: '$nama',
-            position: 'topRight'
-          });
-          setTimeout(function(){
-            window.location.href = 'hal/dashboard.php';
-          }, 2000);
+		alert('Selamat Datang $nama');
+		window.location.href = 'hal/dashboard.php';
+        
         </script>";
 	} else if (empty($username) || empty($pass)) {
 		echo "<script>

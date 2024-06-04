@@ -1,6 +1,6 @@
 <?php
-include "../koneksi/koneksi.php";
 session_start();
+include "../koneksi/koneksi.php";
 if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
 					window.location = '../index.php'</script>";
@@ -31,6 +31,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 		<link rel="stylesheet" href="../assets/css/style.css">
 		<link rel="stylesheet" href="../assets/css/components.css">
 		<link rel="stylesheet" href="../node_modules/izitoast/dist/css/iziToast.min.css">
+		<!-- Boostrap Icon node modules -->
+		<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
 	</head>
 
@@ -259,23 +261,26 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 							<a href="index.html">St</a>
 						</div>
 						<ul class="sidebar-menu">
-							<li><a class="nav-link" href="dashboard.php"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
+							<li><a class="nav-link" href="dashboard.php"><i class="bi bi-grid-1x2-fill mt-1"></i> <span>Dashboard</span></a></li>
 							<li class="menu-header"></li>
 							<li class="nav-item dropdown">
-								<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Master</span></a>
+								<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="bi bi-stack mt-1"></i> <span>Master</span></a>
 								<ul class="dropdown-menu">
 									<li><a class="nav-link" href="?page=pasien">Data Pasien</a></li>
-									<li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
-									<li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
+									<li><a class="nav-link" href="layout-transparent.html">Data Pegawai</a></li>
+									<li><a class="nav-link" href="layout-top-navigation.html">Data Unit Medis</a></li>
 								</ul>
 							</li>
+							<li><a class="nav-link" href="dashboard.php"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
+							<li><a class="nav-link" href="dashboard.php"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Doketer</span></a></li>
+							<li><a class="nav-link" href="dashboard.php"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
+							<li><a class="nav-link" href="dashboard.php"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
+							<li class="menu-header"></li>
 							<li class="nav-item dropdown">
-								<a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i> <span>Bootstrap</span></a>
+								<a href="#" class="nav-link has-dropdown" ata-toggle="dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
 								<ul class="dropdown-menu">
-									<li><a class="nav-link" href="bootstrap-alert.html">Alert</a></li>
-									<li><a class="nav-link" href="bootstrap-badge.html">Badge</a></li>
-									<li><a class="nav-link" href="bootstrap-breadcrumb.html">Breadcrumb</a></li>
-									<li><a class="nav-link" href="bootstrap-buttons.html">Buttons</a></li>
+									<li><a class="nav-link" href="bootstrap-alert.html">Laporan Kunjungan</a></li>
+									<li><a class="nav-link" href="bootstrap-badge.html">Laporan Pasien</a></li>
 
 								</ul>
 							</li>
@@ -310,7 +315,6 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 									include '../pasien/hapus.php';
 								}
 							} else {
-								// Jika parameter 'page' tidak diberikan atau tidak sesuai dengan yang diharapkan, tampilkan halaman default 'home.php'
 								include '../hal/home.php';
 							}
 							?>
