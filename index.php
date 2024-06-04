@@ -146,7 +146,7 @@ if (isset($_POST['submit'])) {
             position: 'topRight'
           });
           setTimeout(function(){
-            window.location.href = 'hal/index.php';
+            window.location.href = 'hal/dashboard.php';
           }, 2000);
         </script>";
 	} else if (empty($username) || empty($pass)) {
