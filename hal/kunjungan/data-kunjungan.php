@@ -48,7 +48,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 
 						<?php
 						include "../../koneksi/koneksi.php";
-						$result = mysqli_query("SELECT tb_kunjungan.no_reg, tb_kunjungan.tgl_reg, tb_kunjungan.unit_tujuan, tb_kunjungan.kode_pasien, tb_pasien.kode_pasien, tb_pasien.nama_pasien, tb_pasien.jenis_kelamin, tb_pasien.alamat FROM tb_kunjungan, tb_pasien WHERE tb_kunjungan.kode_pasien = tb_pasien.kode_pasien");
+						$result = mysqli_query($conn, "SELECT tb_kunjungan.no_reg, tb_kunjungan.tgl_reg, tb_kunjungan.unit_tujuan, tb_kunjungan.kode_pasien, tb_pasien.kode_pasien, tb_pasien.nama_pasien, tb_pasien.jenis_kelamin, tb_pasien.alamat FROM tb_kunjungan, tb_pasien WHERE tb_kunjungan.kode_pasien = tb_pasien.kode_pasien");
 						?>
 						<form name="form1" method="post" action="tampil.php">
 							<table width="100%" border="1" cellpadding="5" cellspacing="1">

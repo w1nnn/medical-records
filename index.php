@@ -135,9 +135,14 @@ if (isset($_POST['submit'])) {
 		$_SESSION['foto'] = $r['foto'];
 		$nama = $_SESSION['nama'];
 		echo "<script>
-		alert('Selamat Datang $nama');
-		window.location.href = 'hal/dashboard.php';
-        
+		iziToast.success({
+            title: 'Selamat Datang',
+            message: '$nama',
+            position: 'topRight'
+          });
+          setTimeout(function(){
+            window.location.href = 'hal/dashboard.php';
+          }, 2000);
         </script>";
 	} else if (empty($username) || empty($pass)) {
 		echo "<script>

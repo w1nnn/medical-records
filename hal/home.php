@@ -2,10 +2,10 @@
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
             <div class="card-stats">
-                <div class="card-stats-title">Order Statistics -
+                <div class="card-stats-title">Data Umum
                     <div class="dropdown d-inline">
-                        <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
-                        <ul class="dropdown-menu dropdown-menu-sm">
+                        <!-- <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a> -->
+                        <!-- <ul class="dropdown-menu dropdown-menu-sm">
                             <li class="dropdown-title">Select Month</li>
                             <li><a href="#" class="dropdown-item">January</a></li>
                             <li><a href="#" class="dropdown-item">February</a></li>
@@ -19,26 +19,26 @@
                             <li><a href="#" class="dropdown-item">October</a></li>
                             <li><a href="#" class="dropdown-item">November</a></li>
                             <li><a href="#" class="dropdown-item">December</a></li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
                         <div class="card-stats-item-count">24</div>
-                        <div class="card-stats-item-label">Pending</div>
+                        <div class="card-stats-item-label">Pegawai</div>
                     </div>
                     <div class="card-stats-item">
                         <div class="card-stats-item-count">12</div>
-                        <div class="card-stats-item-label">Shipping</div>
+                        <div class="card-stats-item-label">Medis</div>
                     </div>
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">23</div>
-                        <div class="card-stats-item-label">Completed</div>
+                        <div class="card-stats-item-count">12</div>
+                        <div class="card-stats-item-label">Pasien</div>
                     </div>
                 </div>
             </div>
-            <div class="card-icon shadow-primary" style="background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);">
-                <i class="fas fa-archive"></i>
+            <div class="card-icon shadow-primary" style="background-color: #8EC5FC; background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); color: #fff;">
+                <i class="bi bi-person-lines-fill"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
