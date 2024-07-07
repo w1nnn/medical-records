@@ -25,6 +25,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						<th>Pekerjaan</th>
 						<th>Alamat</th>
 						<th>No. Telp</th>
+						<th>Email</th>
 						<th>Aksi</th>
 					</tr>
 				</thead>
@@ -40,9 +41,10 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?php echo $data['pekerjaan']; ?></td>
 							<td><?php echo $data['alamat']; ?></td>
 							<td><?php echo $data['telpon']; ?></td>
+							<td><?php echo $data['email']; ?></td>
 							<td>
-								<a href="" class="btn btn-sm bg-info">Edit</a>
-								<a href="" class="btn btn-sm bg-danger">Delete</a>
+								<a href="edit-data.php?kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-info">Edit</a>
+								<a href="proses-hapus.php?kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-danger">Delete</a>
 							</td>
 						</tr>
 					<?php endwhile; ?>

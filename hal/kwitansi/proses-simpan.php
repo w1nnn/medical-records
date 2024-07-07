@@ -1,28 +1,29 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_POST['simpan'])){
-$no_kwitansi = $_POST['no_kwitansi'];
-$tanggal = $_POST['tanggal']; 
-$kode_pasien = $_POST['kode_pasien'];
-$kode_pegawai = $_POST['kode_pegawai'];
-$b_administrasi = $_POST['b_administrasi'];
-$b_lain = $_POST['b_lain'];
-$total_bayar = $_POST['total_bayar'];
-$tunai = $_POST['tunai'];
-$kembali = $_POST['kembali'];
+include "../../koneksi/koneksi.php";
 
-//memasukkan nilai nilai ke dalam table
-$simpan = mysql_query("insert into tb_kwitansi values ('$no_kwitansi','$tanggal','$kode_pasien','$kode_pegawai','$b_administrasi','$b_lain','$total_bayar','$tunai','$kembali')");
+if (isset($_POST['simpan'])) {
+    $kodePasien = $_POST['kode_pasien'];
+    $namaPasien = $_POST['nama_pasien'];
+    $telpon = $_POST['telpon'];
+    $email = $_POST['email'];
+    $noRekmed = $_POST['no_rekmed'];
+    $diagnosa = $_POST['diagnosa'];
+    $keterangan = $_POST['keterangan'];
+    $resep = $_POST['no_resep'];
 
-//$simpon = mysql_query("insert into t_keluarga_aset(no_ktp,menurut_dinding,menurut_lantai,menurut_atap,kategori) values ('$no_ktp','$dinding
-//','$lantai','$atap','$kategori')");
+    $query = "INSERT INTO tb_kwitansi (kode_pasien, nama_pasien, telepon, email, no_rekam_medis, diagnosa, keterangan, no_resep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
 
-echo"
-<center><strong><a href='kwitansi.php?no_kwitansi=$no_kwitansi' target='blank'>CETAK KWITANSI</a> | 
-<a href='data-kwitansi.php'>DATA KWITANSI</a>  | 
-<a href='input-kwitansi.php'>INPUT KWITANSI</a></strong></center>";
+    if ($stmt) {
+        $stmt->bind_param("ssssssss", $kodePasien, $namaPasien, $telpon, $email, $noRekmed, $diagnosa, $keterangan, $resep);
+
+        if ($stmt->execute()) {
+            echo "<script language='javascript'>alert('Data berhasil ditambahkan'); window.location = '?page=transaksi'</script>";
+        } else {
+            echo "<script language='javascript'>alert('Data gagal ditambahkan: " . $stmt->error . "'); window.location = '?page=transaksi'</script>";
+        }
+        $stmt->close();
+    } else {
+        echo "<script language='javascript'>alert('Gagal mempersiapkan statement: " . $conn->error . "'); window.location = '?page=transaksi'</script>";
+    }
 }
-?>

@@ -1,105 +1,54 @@
 <?php
 session_start();
-if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
-	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
-					window.location = '../../index.php'</script>";
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+	exit; // Exiting to prevent further execution
 } else {
 
+	include "../../koneksi/koneksi.php";
+	$result = mysqli_query($conn, "SELECT * FROM tb_obat ORDER BY kode_obat ASC");
 ?>
 
-	<html>
-
-	<head>
-
-
-		<link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="../../css/footer.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="../../css/home.css" rel="stylesheet" type="text/css" media="all" />
-		<link href="../../css/table.css" rel="stylesheet" type="text/css" media="all" />
-
-	</head>
-
-	<body class="home">
-		<div id="bg">
-			<div id="page">
-
-
-				<?php
-				include "../header.php";
-				?>
-
-
-				<div id="body_content">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-left:-11px">
-
-
-						<br />
-						<center><b>DATA OBAT</b></center>
-						<hr>
-						<input style="float:right" type="reset" onClick="location.href='input-obat.php';" value="TAMBAH DATA OBAT">
-						<br /><br />
-
-						<?php
-						include "../../koneksi/koneksi.php";
-						$result = mysqli_query($conn, "select * from tb_obat");
-						?>
-						<form name="form1" method="post" action="tampil.php">
-							<table width="100%" border="1" cellpadding="5" cellspacing="1">
-								<tr>
-									<th>No.</th>
-									<th style="width:130px">Kode Obat</th>
-									<th style="width:250px">Nama Obat</th>
-									<th style="width:130px">Jenis</th>
-									<th style="width:70px">Satuan</th>
-									<th style="width:70px">Jumlah</th>
-									<th style="width:70px">Harga</th>
-									<th style="width:130px">Aksi</th>
-								</tr>
-
-								<?php
-								include "../../koneksi/koneksi.php";
-
-
-								$no = 1;
-
-								while ($data = mysqli_fetch_array($result)) {
-								?>
-									<tr>
-										<td><?php echo $no; ?></td>
-										<td><?php echo $data['kode_obat']; ?></td>
-										<td><?php echo $data['nama_obat']; ?></td>
-										<td><?php echo $data['jenis']; ?></td>
-										<td><?php echo $data['satuan']; ?></td>
-										<td><?php echo $data['jumlah']; ?></td>
-										<td><?php echo $data['harga']; ?></td>
-										<td>
-											<center><a href="edit-data.php?kode_obat=<?php echo $data['kode_obat']; ?>"><img src="http://localhost/puskesmas/images/ubah.gif" /></a> | <a href="proses-hapus.php?kode_obat=<?php echo $data['kode_obat']; ?>"><img src="http://localhost/puskesmas/images/hapus.png" /></a></center>
-										</td>
-									</tr>
-								<?php
-									$no++;
-								}
-								?>
-
-
-							</table>
-						</form>
-						<br /><br /><br /><br />
-
-
-
-					</table>
-				</div>
-
-				<?php
-				include "../footer.php";
-				?>
-
-			</div>
+	<div class="card-body p-0">
+		<div class="table-responsive">
+			<a href="?page=pasien&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
+			<table class="table table-striped" id="table-2">
+				<thead class="table-light">
+					<tr>
+						<th class="text-center">
+							<i class="fas fa-th"></i>
+						</th>
+						<th>Kode Obat</th>
+						<th>Nama Obat</th>
+						<th>Jenis</th>
+						<th>Satuan</th>
+						<th>Jumlah</th>
+						<th>Harga</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $no = 1; ?>
+					<?php while ($data = mysqli_fetch_array($result)) : ?>
+						<tr>
+							<td><?php echo $no++; ?></td>
+							<td><?php echo $data['kode_obat']; ?></td>
+							<td><?php echo $data['nama_obat']; ?></td>
+							<td><?php echo $data['jenis']; ?></td>
+							<td><?php echo $data['satuan']; ?></td>
+							<td><?php echo $data['jumlah']; ?></td>
+							<td><?php echo $data['harga']; ?></td>
+							<td>
+								<a href="edit-data.php?kode_obat=<?= $data['kode_obat']; ?>" class="btn btn-sm bg-info">Edit</a>
+								<a href="proses-hapus.php?kode_obat=<?= $data['kode_obat']; ?>" class="btn btn-sm bg-danger">Delete</a>
+							</td>
+						</tr>
+					<?php endwhile; ?>
+				</tbody>
+			</table>
 		</div>
-	</body>
+	</div>
 
-	</html>
 <?php
 }
 ?>

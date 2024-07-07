@@ -35,6 +35,7 @@
 			<!-- Boostrap Icon node modules -->
 			<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
 
+
 		</head>
 
 		<body>
@@ -48,8 +49,8 @@
 								<li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
 							</ul>
 							<div class="search-element">
-								<input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250">
-								<button class="btn" type="submit"><i class="fas fa-search"></i></button>
+								<input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="border-radius:  0 0 0 20px;">
+								<button class="btn" type="submit" style="border-radius: 0 20px 0 0;"><i class="fas fa-search"></i></button>
 								<div class="search-backdrop"></div>
 								<div class="search-result">
 									<div class="search-header">
@@ -269,13 +270,14 @@
 									<ul class="dropdown-menu">
 										<li><a class="nav-link" href="?page=pasien">Data Pasien</a></li>
 										<li><a class="nav-link" href="?page=pegawai">Data Pegawai</a></li>
-										<li><a class="nav-link" href="layout-top-navigation.html">Data Unit Medis</a></li>
+										<li><a class="nav-link" href="?page=unit-medis">Data Unit Medis</a></li>
+										<li><a class="nav-link" href="?page=obat">Data Obat</a></li>
 									</ul>
 								</li>
-								<li><a class="nav-link" href="dashboard.php"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
-								<li><a class="nav-link" href="dashboard.php"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Doketer</span></a></li>
-								<li><a class="nav-link" href="dashboard.php"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
-								<li><a class="nav-link" href="dashboard.php"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
+								<li><a class="nav-link" href="?page=pendaftaran-pasien"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
+								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Doketer</span></a></li>
+								<li><a class="nav-link" href="?page=rekam-medis"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
+								<li><a class="nav-link" href="?page=transaksi"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
 								<li class="menu-header"></li>
 								<li class="nav-item dropdown">
 									<a href="#" class="nav-link has-dropdown" ata-toggle="dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
@@ -324,6 +326,74 @@
 										include '../pegawai/edit.php';
 									} else if ($act == 'hapus') {
 										include '../pegawai/hapus.php';
+									}
+								} else if ($page == 'unit-medis') {
+									if ($act == '') {
+										include '../hal/unitmedis/data-unitmedis.php';
+									} else if ($act == 'tambah') {
+										include '../unitmedis/tambah.php';
+									} else if ($act == 'edit') {
+										include '../unitmedis/edit.php';
+									} else if ($act == 'hapus') {
+										include '../unitmedis/hapus.php';
+									}
+								} else if ($page == 'obat') {
+									if ($act == '') {
+										include '../hal/obat/data-obat.php';
+									} else if ($act == 'tambah') {
+										include '../obat/tambah.php';
+									} else if ($act == 'edit') {
+										include '../obat/edit.php';
+									} else if ($act == 'hapus') {
+										include '../obat/hapus.php';
+									}
+								} else if ($page == 'pendaftaran-pasien') {
+									if ($act == '') {
+										include '../hal/kunjungan/data-kunjungan.php';
+									} else if ($act == 'tambah') {
+										include '../kunjungan/tambah.php';
+									} else if ($act == 'edit') {
+										include '../kunjungan/edit.php';
+									} else if ($act == 'hapus') {
+										include '../kunjungan/hapus.php';
+									}
+								} else if ($page == 'resep-dokter') {
+									if ($act == '') {
+										include '../hal/resep/data-resep.php';
+									} else if ($act == 'tambah') {
+										include '../resep/tambah.php';
+									} else if ($act == 'edit') {
+										include '../resep/edit.php';
+									} else if ($act == 'hapus') {
+										include '../resep/hapus.php';
+									}
+								} else if ($page == 'rekam-medis') {
+									if ($act == '') {
+										include '../hal/rekammedis/data-rekmed.php';
+									} else if ($act == 'tambah') {
+										include '../rekammedis/tambah.php';
+									} else if ($act == 'edit') {
+										include '../rekammedis/edit.php';
+									} else if ($act == 'hapus') {
+										include '../rekammedis/hapus.php';
+									}
+								} else if ($page == 'transaksi') {
+									if ($act == '') {
+										include '../hal/kwitansi/data-kwitansi.php';
+									} else if ($act == 'add') {
+										include '../hal/kwitansi/input-kwitansi.php';
+									} else if ($act == 'edit') {
+										include '../hal/kwitansi/edit.php';
+									} else if ($act == 'del') {
+										include '../hal/kwitansi/proses-hapus.php';
+									} else if ($act == 'save') {
+										include '../hal/kwitansi/proses-simpan.php';
+									} else if ($act == 'pay') {
+										include '../hal/kwitansi/bayar.php';
+									}
+								} else if ($page == 'checkout') {
+									if ($act == '') {
+										include '../hal/kwitansi/req.php';
 									}
 								} else {
 									include '../hal/home.php';
@@ -405,6 +475,7 @@
 			<script src="../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 			<script src="../node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
 			<script src="../assets/js/page/modules-datatables.js"></script>
+
 		</body>
 
 		</html>

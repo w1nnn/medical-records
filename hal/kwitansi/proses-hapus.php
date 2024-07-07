@@ -1,17 +1,31 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_GET['no_kwitansi'])){
-$no_kwitansi = $_GET['no_kwitansi'];
+include "../../koneksi/koneksi.php";
 
+if (isset($_GET['id_kwitansi'])) {
+    $no_kwitansi = $_GET['id_kwitansi'];
 
-//memasukkan nilai nilai ke dalam table
+    $stmt = $conn->prepare("DELETE FROM tb_kwitansi WHERE id_kwitansi = ?");
+    $stmt->bind_param("s", $no_kwitansi);
+    $stmt->execute();
 
-$ubah = mysql_query("delete from tb_kwitansi where no_kwitansi = '$no_kwitansi'");
+    if ($stmt->affected_rows > 0) {
+        echo "<script>
+            alert('Data telah dihapus!');
+            window.location='?page=transaksi';
+            </script>";
+    } else {
+        echo "<script>
+            alert('Data tidak ditemukan atau tidak dapat dihapus!');
+            window.location='?page=transaksi';
+            </script>";
+    }
 
-echo"<script>window.alert('Data $no_kwitansi Sudah Dihapus')
-window.location='data-kwitansi.php'</script>";
+    $stmt->close();
+} else {
+    echo "<script>
+        alert('No kwitansi tidak ditemukan!');
+        window.location='?page=transaksi';
+        </script>";
 }
-?>
+
+$conn->close();
