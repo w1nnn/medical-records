@@ -1,22 +1,52 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_POST['simpan'])){
-$no_reg = $_POST['no_reg'];
-$tgl_reg = $_POST['tgl_reg']; 
-$unit_tujuan = $_POST['unit_tujuan'];
-$kode_pasien = $_POST['kode_pasien'];
+session_start();
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+    echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+    exit; // Exiting to prevent further execution
+} else {
+    include "../../koneksi/koneksi.php";
 
+    if (isset($_POST['simpan'])) {
+        $no_reg = $_POST['no_reg'];
+        $tgl_reg = $_POST['tanggal_reg'];
+        $unitTujuan = $_POST['unit_tujuan'];
+        $kode_pasien = $_POST['kode_pasien'];
+        $nama_pasien = $_POST['nama_pasien'];
+        $jenis_kelamin = $_POST['jenis_kelamin'];
+        $alamat = $_POST['alamat'];
 
-//memasukkan nilai nilai ke dalam table
-$simpan = mysql_query("insert into tb_kunjungan values ('$no_reg','$tgl_reg','$unit_tujuan','$kode_pasien')");
+        $sql_insert = "INSERT INTO tb_kunjungan (no_reg, tgl_reg, unit_tujuan, kode_pasien, nama_pasien, jenis_kelamin, alamat) 
+                       VALUES ('$no_reg', '$tgl_reg', '$unitTujuan', '$kode_pasien', '$nama_pasien', '$jenis_kelamin', '$alamat')";
 
-//$simpon = mysql_query("insert into t_keluarga_aset(no_ktp,menurut_dinding,menurut_lantai,menurut_atap,kategori) values ('$no_ktp','$dinding
-//','$lantai','$atap','$kategori')");
+        // Eksekusi query
+        $result = mysqli_query($conn, $sql_insert);
 
-echo"<script>window.alert('Data Sudah Tersimpan')
-window.location='data-kunjungan.php'</script>";
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil disimpan');</script>";
+            echo "<script>window.location='?page=pendaftaran-pasien';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat menyimpan data');</script>";
+        }
+    } elseif (isset($_POST['edit'])) {
+        $no_reg = $_POST['no_reg'];
+        $tgl_reg = $_POST['tanggal_reg'];
+        $unit_tujuan = $_POST['unit_tujuan'];
+        $kode_pasien = $_POST['kode_pasien'];
+        $nama_pasien = $_POST['nama_pasien'];
+        $jenis_kelamin = $_POST['jenis_kelamin'];
+        $alamat = $_POST['alamat'];
+
+        $sql_update = "UPDATE tb_kunjungan SET unit_tujuan = '$unit_tujuan', kode_pasien = '$kode_pasien', nama_pasien = '$nama_pasien', jenis_kelamin = '$jenis_kelamin', alamat = '$alamat' WHERE no_reg = '$no_reg'";
+
+        $result_update = mysqli_query($conn, $sql_update);
+
+        if ($result_update) {
+            echo "<script>alert('Data pasien berhasil diupdate');</script>";
+            echo "<script>window.location='?page=pendaftaran-pasien';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat mengupdate data');</script>";
+        }
+    }
 }
-?>

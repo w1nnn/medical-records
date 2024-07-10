@@ -64,128 +64,61 @@ foreach ($resepArray as $resep) {
 <input type="hidden" value="<?= $order_id; ?>">
 <form id="payment-form">
     <div class="form-group">
-        <!-- <label for="name">Nama Pasien</label> -->
-        <input type="hidden" class="form-control" id="name" value="<?= htmlspecialchars($name) ?>" readonly>
+        <label for="name">Nama Pasien</label>
+        <input type="text" class="form-control" id="name" value="<?= htmlspecialchars($name) ?>" readonly>
     </div>
 
     <div class="form-group">
-        <!-- <label for="phone">Nomor Telepon</label> -->
-        <input type="hidden" class="form-control" id="phone" value="<?= htmlspecialchars($phone) ?>" readonly>
+        <label for="phone">Nomor Telepon</label>
+        <input type="text" class="form-control" id="phone" value="<?= htmlspecialchars($phone) ?>" readonly>
     </div>
 
     <div class="form-group">
-        <!-- <label for="email">Email</label> -->
-        <input type="hidden" class="form-control" id="email" value="<?= htmlspecialchars($email) ?>" readonly>
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" value="<?= htmlspecialchars($email) ?>" readonly>
     </div>
 
-    <div class="invoice">
-        <div class="invoice-print">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="invoice-title">
-                        <h2>Puskesmas Kondodewata</h2>
-                        <?php if ($order_id != '-') : ?>
-                            <div id="order" class="invoice-number"></div>
-                        <?php endif; ?>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <address>
-                                <strong>Tagihan Kepada:</strong><br>
-                                <?= htmlspecialchars($name) ?><br>
-                                <?= htmlspecialchars($phone) ?><br>
-                                <?= htmlspecialchars($email) ?><br>
-                            </address>
-                        </div>
-                    </div>
-                    <?php if ($order_id != '-') : ?>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <address>
-                                    <strong>Metode Pembayaran:</strong><br>
-                                    <p id="pay-method"></p><br>
-                                </address>
-                            </div>
-                            <div class="col-md-6 text-md-right">
-                                <address>
-                                    <strong>Tanggal Pembayaran:</strong><br>
-                                    <p id="order-date"></p><br><br>
-                                </address>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-            <div class="row mt-4">
-                <div class="col-md-12">
-                    <div class="section-title">Rincian Pesanan</div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover table-md">
-                            <tr>
-                                <th data-width="40">#</th>
-                                <th>Item</th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-right">Totals</th>
-                            </tr>
-                            <?php
-                            $no = 1;
-                            $total = 0;
-                            foreach ($items as $item) :
-                                $subtotal = $item['price'] * $item['quantity'];
-                                $total += $subtotal;
-                            ?>
-                                <tr>
-                                    <td data-width="40"><?= $no++ ?></td>
-                                    <td><?= $item['item'] ?></td>
-                                    <td class="text-center">Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
-                                    <td class="text-center"><?= $item['quantity'] ?></td>
-                                    <td class="text-right">Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-lg-8">
-                            <div class="section-title">Jenis Metode Pemabayaran</div>
-                            <div class="d-flex">
-                                <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
-                                <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
-                                <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
-                                <div class="bg-paypal" data-width="61" data-height="38"></div>
-                                <!-- <div class="bg-mandiri" data-width="75" data-height=" 38"></div> -->
-
-                            </div>
-                        </div>
-                        <div class="col-lg-4 text-right">
-                            <hr class="mt-2 mb-2">
-                            <div class="invoice-detail-item">
-                                <div class="invoice-detail-name">Total</div>
-                                <div class="invoice-detail-value invoice-detail-value-lg">Rp. <?= number_format($total, 0, ',', '.') ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="text-md-right">
-            <div class="float-lg-left mb-lg-0 mb-3">
-                <?php if ($order_id == '-') : ?>
-                    <button type="submit" id="pay" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-                <?php endif; ?>
-                <a href="?page=transaksi" class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</a>
-            </div>
-            <?php if ($order_id != '-') : ?>
-                <button id="print" class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-            <?php endif; ?>
-        </div>
-    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama Obat</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $no = 1;
+            $total = 0;
+            foreach ($items as $item) :
+                $subtotal = $item['price'] * $item['quantity'];
+                $total += $subtotal;
+            ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $item['item'] ?></td>
+                    <td>Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
+                    <td><?= $item['quantity'] ?></td>
+                    <td>Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4" align="right">Total</td>
+                <td>Rp. <?= number_format($total, 0, ',', '.') ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <?php foreach ($items as $item) : ?>
+        <input type="hidden" name="items[]" value="<?= htmlspecialchars(json_encode($item)); ?>">
+    <?php endforeach; ?>
+    <?php if ($order_id == '-') : ?>
+        <button type="submit" id="pay" class="btn btn-primary btn-sm" style="width: 100%;">Konfirmasi Transaksi</button>
+    <?php endif; ?>
 </form>
 <?php if ($order_id != '-') : ?>
-    <!-- <div class="card-body p-0 mt-4">
+    <div class="card-body p-0 mt-4">
         <div class="table-responsive">
             <table class="table table-striped" id="midtransTable">
                 <thead class="table-light">
@@ -202,9 +135,118 @@ foreach ($resepArray as $resep) {
                 </tbody>
             </table>
         </div>
-    </div> -->
+    </div>
 <?php endif; ?>
+<div class="invoice">
+    <div class="invoice-print">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="invoice-title">
+                    <h2>Invoice</h2>
+                    <div class="invoice-number">Order #12345</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <address>
+                            <strong>Billed To:</strong><br>
+                            Ujang Maman<br>
+                            1234 Main<br>
+                            Apt. 4B<br>
+                            Bogor Barat, Indonesia
+                        </address>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <address>
+                            <strong>Shipped To:</strong><br>
+                            Muhamad Nauval Azhar<br>
+                            1234 Main<br>
+                            Apt. 4B<br>
+                            Bogor Barat, Indonesia
+                        </address>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <address>
+                            <strong>Payment Method:</strong><br>
+                            Visa ending **** 4242<br>
+                            ujang@maman.com
+                        </address>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <address>
+                            <strong>Order Date:</strong><br>
+                            September 19, 2018<br><br>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="section-title">Order Summary</div>
+                <p class="section-lead">All items here cannot be deleted.</p>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-md">
+                        <tr>
+                            <th data-width="40">#</th>
+                            <th>Item</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Totals</th>
+                        </tr>
+                        <?php
+                        $no = 1;
+                        $total = 0;
+                        foreach ($items as $item) :
+                            $subtotal = $item['price'] * $item['quantity'];
+                            $total += $subtotal;
+                        ?>
+                            <tr>
+                                <td data-width="40"><?= $no++ ?></td>
+                                <td><?= $item['item'] ?></td>
+                                <td class="text-center">Rp. <?= number_format($item['price'], 0, ',', '.') ?></td>
+                                <td class="text-center"><?= $item['quantity'] ?></td>
+                                <td class="text-right">Rp. <?= number_format($subtotal, 0, ',', '.') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-8">
+                        <div class="section-title">Payment Method</div>
+                        <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p>
+                        <div class="d-flex">
+                            <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
+                            <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
+                            <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
+                            <div class="bg-paypal" data-width="61" data-height="38"></div>
+                            <div class="bg-mandiri" data-width="72" data-height="38"></div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <hr class="mt-2 mb-2">
+                        <div class="invoice-detail-item">
+                            <div class="invoice-detail-name">Total</div>
+                            <div class="invoice-detail-value invoice-detail-value-lg">Rp. <?= number_format($total, 0, ',', '.') ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="text-md-right">
+        <div class="float-lg-left mb-lg-0 mb-3">
+            <button type="submit" id="pay" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
+            <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+        </div>
+        <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
+    </div>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -330,14 +372,18 @@ foreach ($resepArray as $resep) {
 
             const data = await response.json();
             console.log("Transaction status:", data);
-            const orderElement = document.querySelector('#order').innerHTML = data.order_id;
-            const orderTimeElement = document.querySelector('#order-date').innerHTML = data.transaction_time;
-            const payMethodElement = document.querySelector('#pay-method').innerHTML = `${data.payment_type}`;
-            const printElement = document.querySelector('#print');
-            printElement.addEventListener('click', function(e) {
-                window.print();
-                e.preventDefault();
-            })
+            let tableBody = document.getElementById('midtransTableBody');
+            let newRow = document.createElement('tr');
+            console.log(data);
+            newRow.innerHTML = `
+                    <td>${data.order_id}</td>
+                    <td>${data.payment_type}</td>
+                    <td>${data.gross_amount}</td>
+                    <td>${data.transaction_status}</td>
+                    <td>${data.transaction_time}</td>
+                    <td>${data.settlement_time}</td>
+                `;
+            tableBody.appendChild(newRow);
         } catch (error) {
             console.error("Fetch error:", error);
         }

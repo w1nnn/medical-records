@@ -313,9 +313,11 @@
 									} else if ($act == 'add') {
 										include '../hal/pasien/input-pasien.php';
 									} else if ($act == 'edit') {
-										include '../pasien/edit.php';
+										include '../hal/pasien/edit-data.php';
 									} else if ($act == 'hapus') {
-										include '../pasien/hapus.php';
+										include '../hal/pasien/proses-hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/pasien/proses-simpan.php';
 									}
 								} else if ($page == 'pegawai') {
 									if ($act == '') {
@@ -350,12 +352,14 @@
 								} else if ($page == 'pendaftaran-pasien') {
 									if ($act == '') {
 										include '../hal/kunjungan/data-kunjungan.php';
-									} else if ($act == 'tambah') {
-										include '../kunjungan/tambah.php';
+									} else if ($act == 'add') {
+										include '../hal/kunjungan/input-kunjungan.php';
 									} else if ($act == 'edit') {
-										include '../kunjungan/edit.php';
+										include '../hal/kunjungan/edit-data.php';
 									} else if ($act == 'hapus') {
-										include '../kunjungan/hapus.php';
+										include '../hal/kunjungan/proses-hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/kunjungan/proses-simpan.php';
 									}
 								} else if ($page == 'resep-dokter') {
 									if ($act == '') {

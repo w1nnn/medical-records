@@ -22,55 +22,59 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 	$nextID = "PSN" . sprintf("%04s", $nextNoUrut);
 	// selesai,,, untuk memanggil ID otomatis ini  bisa memasangkan cara
 ?>
-
-	<div class="row">
-		<div class="col-12 col-md-12 col-lg-12">
-			<div class="card">
-				<div class="card-body">
-					<div class="alert alert-info">
-						<b>Form</b> Tambah Data Pasien
-					</div>
-					<div class="form-group">
-						<label>Kode Pasien</label>
-						<input name="kode_pasien" disabled type="text" value="<?= $nextID; ?>" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>Nama Pasien</label>
-						<input name="nama_pasien" type="text" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>Tanggal Lahir</label>
-						<input type="date" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>Jenis Kelamin</label>
-						<select class="form-control" name="jenis_kelamin">
-							<option>Choose</option>
-							<option>Laki Laki</option>
-							<option>Perempuan</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label>Alamat</label>
-						<input name="alamat" type="text" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>Pekerjaan</label>
-						<input name="pekerjaan" type="text" class="form-control">
-					</div>
-					<div class="form-group">
-						<label>No. Telp</label>
-						<input name="telpon" type="text" class="form-control">
-					</div>
-					<div class="card-footer text-right">
-						<button name="simpan" type="submit" class="btn btn-primary mr-1">Simpan</button>
-						<a href="?page=pasien" class="btn btn-sm btn-warning" type="reset">Batal</a>
+	<form action="?page=pasien&act=simpan" method="POST">
+		<div class="row">
+			<div class="col-12 col-md-12 col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="alert alert-info">
+							<b>Form</b> Tambah Data Pasien
+						</div>
+						<div class="form-group">
+							<label>Kode Pasien</label>
+							<input name="kode_pasien" type="text" value="<?= $nextID; ?>" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label>Nama Pasien</label>
+							<input name="nama_pasien" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Tanggal Lahir</label>
+							<input type="date" class="form-control" name="tanggal_lahir">
+						</div>
+						<div class="form-group">
+							<label>Jenis Kelamin</label>
+							<select class="form-control" name="jenis_kelamin">
+								<option>Choose</option>
+								<option>Laki Laki</option>
+								<option>Perempuan</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Alamat</label>
+							<input name="alamat" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Pekerjaan</label>
+							<input name="pekerjaan" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>No. Telp</label>
+							<input name="telpon" type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input name="email" type="text" class="form-control">
+						</div>
+						<div class="card-footer text-right">
+							<button name="simpan" type="submit" class="btn btn-primary mr-1">Simpan</button>
+							<a href="?page=pasien" class="btn btn-sm btn-warning" type="reset">Batal</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
+	</form>
 <?php
 }
 ?>

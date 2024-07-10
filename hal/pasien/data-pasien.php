@@ -43,8 +43,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?php echo $data['telpon']; ?></td>
 							<td><?php echo $data['email']; ?></td>
 							<td>
-								<a href="edit-data.php?kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-info">Edit</a>
-								<a href="proses-hapus.php?kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-danger">Delete</a>
+								<a href="?page=pasien&act=edit&kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-info">Edit</a>
+								<a href="?page=pasien&act=hapus&kode_pasien=<?= $data['kode_pasien']; ?>" class="btn btn-sm bg-danger">Delete</a>
 							</td>
 						</tr>
 					<?php endwhile; ?>

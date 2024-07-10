@@ -1,153 +1,122 @@
 <?php
 session_start();
-if (empty($_SESSION['username']) AND empty($_SESSION['password'])){
-	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
-					window.location = '../../index.php'</script>";
+
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+	echo "<script>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php';</script>";
+	exit; // Menghentikan eksekusi lebih lanjut jika belum login
 }
-else{
 
+include "../../koneksi/koneksi.php";
+
+// Periksa apakah ada parameter id pasien yang dikirimkan melalui URL
+if (isset($_GET['no_reg'])) {
+	$no_reg = $_GET['no_reg'];
+
+	// Query untuk mengambil data pasien berdasarkan id atau no_reg (disesuaikan dengan struktur tabel)
+	$sql_pasien = "SELECT * FROM tb_kunjungan WHERE no_reg = '$no_reg'";
+	$result_pasien = mysqli_query($conn, $sql_pasien);
+
+	// Periksa apakah data pasien ditemukan
+	if (mysqli_num_rows($result_pasien) > 0) {
+		$row_pasien = mysqli_fetch_assoc($result_pasien);
+
+		// Data untuk mengisi form
+		$no_reg = $row_pasien['no_reg'];
+		$tgl_reg = $row_pasien['tgl_reg'];
+		$unit_tujuan = $row_pasien['unit_tujuan'];
+		$kode_pasien = $row_pasien['kode_pasien'];
+		$nama_pasien = $row_pasien['nama_pasien'];
+		$jenis_kelamin = $row_pasien['jenis_kelamin'];
+		$alamat = $row_pasien['alamat'];
+	} else {
+		echo "<script>alert('Data pasien tidak ditemukan');</script>";
+		echo "<script>window.location='?page=pendaftaran-pasien';</script>";
+		exit;
+	}
+} else {
+	echo "<script>alert('Parameter id tidak ditemukan');</script>";
+	echo "<script>window.location='?page=pendaftaran-pasien';</script>";
+	exit;
+}
 ?>
-
-<html>
-<head>
-
-
-	<link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="../../css/footer.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../../css/home.css" rel="stylesheet" type="text/css" media="all" />
-    
-            
-</head>
-
-<body class="home">
-    <div id="bg">
-	<div id="page">
-	
-	
-	<?php
-	include "../header.php";
-	?>
-	
-	
-    <div id="body_content">
-	
-	<br/>
-	<center><b>UBAH DATA PASIEN</b></center>
-	<br/>
-	
-	                <?php
-				include "../../koneksi/koneksi.php";
-$kode_pasien = $_GET['kode_pasien'];
-$result = mysql_query("select * from tb_pasien where kode_pasien='$kode_pasien'");
-$data = mysql_fetch_array($result);
-
-
-?>
-
-
-
-
-
-		<table width="100%"  border="0" cellspacing="0" cellpadding="0" style="margin-left:-11px">
-		
-		
-				 <tr>
-			<td valign="top">
-				
-				<?php
-					include "../sidebar.php";
-				?>
-
-			</td>
-			
-			
-			<td valign="top" width="660">        <div style="padding:10px 0 10px 0 ">
-		
-		
-		
-
-<form name="form1" method="post" action="proses-edit.php">
-				
-
-		
-		
-		
-		
-
-		<table width="100%" border="0" cellspacing="4" cellpadding="0" class="tabel_reg">
-		  <tr>
-			<td width="120"><b>KODE PASIEN</b></td>
-			<td><input name="kode_pasien" type="text" size="40" value="<?php echo $data['kode_pasien']; ?>"> <em>harus diisi</em></td>
-		  </tr>
-		  <tr>
-			<td>Nama Pasien</td>
-			<td><input name="nama_pasien" type="text" size="40" value="<?php echo $data['nama_pasien']; ?>"> <em>harus diisi</em></td>
-		  </tr>
-		  <tr>
-			<td>Tgl. Lahir</td>
-			<td><input name="tanggal_lahir" type="text" size="40" value="<?php echo $data['tanggal_lahir']; ?>"> <em>harus diisi</em></td>
-		  </tr>
-		  
-		<tr>
-		<td>Umur</td>
-		<td><input name="umur" type="text" size="40" value="<?php echo $data['umur']; ?>"> <em>harus diisi</em></td>
-		</tr>
-	
-		<tr>
-		<td>Jenis Kelamin</td>
-		<td>
-		<select name="jenis_kelamin" id="jenis_kelamin">
-
-<?php echo $data['jenis_kelamin']; 
-
-if ($data['jenis_kelamin'] == "Laki-laki") echo "<option>....</option>
-<option value='Laki-laki' selected>Laki-laki</option>
-<option>Perempuan</option>"; 
-else if ($data['jenis_kelamin'] == "Perempuan") echo "<option>....</option>
-<option>Laki-laki</option>
-<option value='Perempuan' selected>Perempuan</option>"; 
-?>
-</select><em>harus diisi</em>
-		</td>
-		</tr>
-		
-		<tr>
-		<td>Pekerjaan</td>
-		<td><input name="pekerjaan" type="text" size="40" value="<?php echo $data['pekerjaan']; ?>"> <em>harus diisi</em></td>
-		</tr>
-		
-		<tr>
-		<td>Alamat</td>
-		<td><input name="alamat" type="text" size="40" value="<?php echo $data['alamat']; ?>"> <em>harus diisi</em></td>
-		</tr>
-		
-		<tr>
-		<td>No. Telp</td>
-		<td><input name="telpon" type="text" size="40" value="<?php echo $data['telpon']; ?>"> <em>harus diisi</em></td>
-		</tr>
-		
-			  <tr>
-			<td></td>
-			<td><input name="simpan" type="submit" value="Simpan"> <input name="batal" type="reset" onClick="location.href='data-pasien.php';"value="Batal"></td>
-		  </tr>
-		</table>
-		
-		</form>
-		
+<div class="container">
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="alert alert-info">
+						<b>Form</b> Edit Data Pendaftaran Pasien
+					</div>
+					<form action="?page=pendaftaran-pasien&act=simpan" method="POST">
+						<div class="form-group">
+							<label>No Registrasi</label>
+							<input name="no_reg" type="text" value="<?= $no_reg; ?>" class="form-control" readonly>
+						</div>
+						<div class="form-group">
+							<label>Tanggal Registrasi</label>
+							<input type="date" class="form-control" name="tanggal_reg" value="<?= $tgl_reg; ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label>Unit Tujuan</label>
+							<select class="form-control" name="unit_tujuan">
+								<option value="">Choose</option>
+								<option value="Poli Umum" <?= ($unit_tujuan == 'Poli Umum') ? 'selected' : ''; ?>>Poli Umum</option>
+								<option value="Poli Gigi" <?= ($unit_tujuan == 'Poli Gigi') ? 'selected' : ''; ?>>Poli Gigi</option>
+								<option value="Poli KIA/KB" <?= ($unit_tujuan == 'Poli KIA/KB') ? 'selected' : ''; ?>>Poli KIA/KB</option>
+								<option value="IGD" <?= ($unit_tujuan == 'IGD') ? 'selected' : ''; ?>>IGD</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Kode Pasien</label>
+							<select class="form-control" name="kode_pasien" onchange="fillData(this.value)">
+								<option value="">Choose</option>
+								<?php
+								mysqli_data_seek($result_pasien, 0);
+								while ($row = mysqli_fetch_array($result_pasien)) {
+									echo "<option value='" . $row['kode_pasien'] . "'";
+									if ($row['kode_pasien'] == $kode_pasien) {
+										echo " selected";
+									}
+									echo ">" . $row['kode_pasien'] . "</option>";
+								}
+								?>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>Nama Pasien</label>
+							<input name="nama_pasien" id="nama_pasien" type="text" class="form-control" value="<?= $nama_pasien; ?>">
+						</div>
+						<div class="form-group">
+							<label>Jenis Kelamin</label>
+							<input name="jenis_kelamin" id="jenis_kelamin" type="text" class="form-control" value="<?= $jenis_kelamin; ?>">
+						</div>
+						<div class="form-group">
+							<label>Alamat</label>
+							<input name="alamat" id="alamat" type="text" class="form-control" value="<?= $alamat; ?>">
+						</div>
+						<div class="card-footer text-right">
+							<button name="edit" type="submit" class="btn btn-primary mr-1">Simpan</button>
+							<a href="?page=pendaftaran-pasien" class="btn btn-sm btn-warning" type="reset">Batal</a>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-		</td>
-		</tr>
-</table>
+	</div>
+</div>
 
-    </div>
-    
+<script>
+	function fillData(kode_pasien) {
 		<?php
-		include "../footer.php";
+		mysqli_data_seek($result_pasien, 0);
+		while ($row_pasien = mysqli_fetch_array($result_pasien)) {
+			echo "if (kode_pasien == '{$row_pasien['kode_pasien']}') {
+                        document.getElementById('nama_pasien').value = '{$row_pasien['nama_pasien']}';
+                        document.getElementById('jenis_kelamin').value = '{$row_pasien['jenis_kelamin']}';
+                        document.getElementById('alamat').value = '{$row_pasien['alamat']}';
+                    }";
+		}
 		?>
-
-    </div></div>
-</body>
-</html>
-<?php
-}
-?>
+	}
+</script>

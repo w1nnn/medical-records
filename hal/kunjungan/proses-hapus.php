@@ -1,17 +1,31 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_GET['kode_pasien'])){
-$kode_pasien = $_GET['kode_pasien'];
+include "../../koneksi/koneksi.php";
 
+if (isset($_GET['no_reg'])) {
+    $n_reg = $_GET['no_reg'];
 
-//memasukkan nilai nilai ke dalam table
+    $stmt = $conn->prepare("DELETE FROM tb_kunjungan WHERE no_reg = ?");
+    $stmt->bind_param("s", $n_reg);
+    $stmt->execute();
 
-$ubah = mysql_query("delete from tb_pasien where kode_pasien = '$kode_pasien'");
+    if ($stmt->affected_rows > 0) {
+        echo "<script>
+            alert('Data telah dihapus!');
+            window.location='?page=pendaftaran-pasien';
+            </script>";
+    } else {
+        echo "<script>
+            alert('Data tidak ditemukan atau tidak dapat dihapus!');
+            window.location='?page=pendaftaran-pasien';
+            </script>";
+    }
 
-echo"<script>window.alert('Data $kode_pasien Sudah Dihapus')
-window.location='data-pasien.php'</script>";
+    $stmt->close();
+} else {
+    echo "<script>
+        alert('Kode pasien tidak ditemukan!');
+        window.location='?page=pendaftaran-pasien';
+        </script>";
 }
-?>
+
+$conn->close();
