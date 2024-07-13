@@ -1,13 +1,15 @@
 <script type="text/javascript" async src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-c6-7tSgr5kcejdNu"></script>
 
 <?php
-
 include "../../koneksi/koneksi.php";
 
 $noResep = $_POST['no_resep'];
 $kodePasien = $_POST['kode_pasien'];
 $id_kwitansi = $_POST['id_kwitansi'];
 $order_id = $_POST['order_id'];
+if ($order_id == null) {
+    echo "<script>window.location.href='?page=transaksi';</script>";
+}
 $queryPasien = "SELECT * FROM tb_pasien WHERE kode_pasien = '$kodePasien'";
 $dataPasien = mysqli_query($conn, $queryPasien);
 

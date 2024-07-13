@@ -31,6 +31,7 @@
 			<link rel="stylesheet" href="../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css">
 			<!-- Template CSS -->
 			<link rel="stylesheet" href="../assets/css/style.css">
+			<link rel="stylesheet" href="../assets/css/select2.css">
 			<link rel="stylesheet" href="../assets/css/components.css">
 			<!-- Boostrap Icon node modules -->
 			<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -343,11 +344,15 @@
 									if ($act == '') {
 										include '../hal/obat/data-obat.php';
 									} else if ($act == 'tambah') {
-										include '../obat/tambah.php';
+										include '../hal/obat/input-obat.php';
 									} else if ($act == 'edit') {
-										include '../obat/edit.php';
+										include '../hal/obat/edit-data.php';
 									} else if ($act == 'hapus') {
-										include '../obat/hapus.php';
+										include '../hal/obat/proses-hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/obat/proses-simpan.php';
+									} else if ($act == 'fetch') {
+										include '../hal/obat/api-obat.php';
 									}
 								} else if ($page == 'pendaftaran-pasien') {
 									if ($act == '') {
@@ -479,6 +484,7 @@
 			<script src="../node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 			<script src="../node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
 			<script src="../assets/js/page/modules-datatables.js"></script>
+			<script src="../assets/js/select2.js"></script>
 
 		</body>
 
