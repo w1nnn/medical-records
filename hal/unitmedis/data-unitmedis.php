@@ -11,8 +11,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 
 	<div class="card-body p-0">
 		<div class="table-responsive">
-			<a href="?page=pasien&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
-			<table class="table table-striped" id="table-2">
+			<a href="?page=unit-medis&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
+			<table class="table table-hover table-striped" id="table-2">
 				<thead class="table-light">
 					<tr>
 						<th class="text-center">
@@ -37,8 +37,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?php echo $data['alamat']; ?></td>
 							<td><?php echo $data['telpon']; ?></td>
 							<td>
-								<a href="edit-data.php?id_unitmedis=<?= $data['id_unitmedis']; ?>" class="btn btn-sm bg-info">Edit</a>
-								<a href="proses-hapus.php?id_unitmedis=<?= $data['id_unitmedis']; ?>" class="btn btn-sm bg-danger">Delete</a>
+								<a href="?page=unit-medis&act=edit&id_unitmedis=<?= $data['id_unitmedis']; ?>" class="btn btn-sm bg-info">Edit</a>
+								<a href="?page=unit-medis&act=del&id_unitmedis=<?= $data['id_unitmedis']; ?>" class="btn btn-sm bg-danger">Delete</a>
 							</td>
 						</tr>
 					<?php endwhile; ?>

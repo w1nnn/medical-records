@@ -25,7 +25,7 @@ $result_pasien = mysqli_query($conn, $sql_pasien);
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
-					<div class="alert alert-info">
+					<div class="alert" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
 						<b>Form</b> Tambah Data Pendaftaran Pasien
 					</div>
 					<form action="?page=pendaftaran-pasien&act=simpan" method="POST">

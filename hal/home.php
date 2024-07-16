@@ -1,8 +1,26 @@
+<?php
+include "../koneksi/koneksi.php";
+// Obat
+$dataObat = mysqli_query($conn, "SELECT * FROM tb_obat");
+$jumlahObat = mysqli_num_rows($dataObat);
+// Rekam Medis
+$dataRekamMedis = mysqli_query($conn, "SELECT * FROM tb_rekmed");
+$jumlahRekamMedis = mysqli_num_rows($dataRekamMedis);
+// pasien
+$dataPasien = mysqli_query($conn, "SELECT * FROM tb_pasien");
+$jumlahPasien = mysqli_num_rows($dataPasien);
+// unit medis
+$dataUnitMedis = mysqli_query($conn, "SELECT * FROM tb_unitmedis");
+$jumlahUnitMedis = mysqli_num_rows($dataUnitMedis);
+// resep dokter
+$dataResepDokter = mysqli_query($conn, "SELECT * FROM tb_resep");
+$jumlahResepDokter = mysqli_num_rows($dataResepDokter);
+?>
 <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-2">
             <div class="card-stats">
-                <div class="card-stats-title">Data Umum
+                <div class="card-stats-title">Data Master
                     <div class="dropdown d-inline">
                         <!-- <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a> -->
                         <!-- <ul class="dropdown-menu dropdown-menu-sm">
@@ -24,15 +42,21 @@
                 </div>
                 <div class="card-stats-items">
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">24</div>
-                        <div class="card-stats-item-label">Pegawai</div>
+                        <div class="card-stats-item-count">
+                            <?= $jumlahUnitMedis; ?>
+                        </div>
+                        <div class="card-stats-item-label">Unit Medis</div>
                     </div>
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">12</div>
-                        <div class="card-stats-item-label">Medis</div>
+                        <div class="card-stats-item-count">
+                            <?= $jumlahResepDokter; ?>
+                        </div>
+                        <div class="card-stats-item-label">Resep</div>
                     </div>
                     <div class="card-stats-item">
-                        <div class="card-stats-item-count">12</div>
+                        <div class="card-stats-item-count">
+                            <?= $jumlahPasien; ?>
+                        </div>
                         <div class="card-stats-item-label">Pasien</div>
                     </div>
                 </div>
@@ -42,10 +66,10 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Jumlah Pasien</h4>
+                    <h4>Jumlah Rekam Medis</h4>
                 </div>
                 <div class="card-body">
-                    59
+                    <?= $jumlahRekamMedis; ?>
                 </div>
             </div>
         </div>
@@ -62,8 +86,9 @@
                 <div class="card-header">
                     <h4>Jumlah Obat</h4>
                 </div>
+
                 <div class="card-body">
-                    $187,13
+                    <?= $jumlahObat; ?>
                 </div>
             </div>
         </div>

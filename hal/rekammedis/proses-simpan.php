@@ -1,24 +1,59 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_POST['simpan'])){
-$no_rekmed = $_POST['no_rekmed'];
-$tanggal = $_POST['tanggal']; 
-$kode_pasien = $_POST['kode_pasien'];
-$id_unitmedis = $_POST['id_unitmedis'];
-$diagnosa1 = $_POST['diagnosa1'];
-$diagnosa2 = $_POST['diagnosa2'];
-$keterangan = $_POST['keterangan'];
+session_start();
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+    echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+    exit; // Exiting to prevent further execution
+} else {
+    include "../../koneksi/koneksi.php";
 
-//memasukkan nilai nilai ke dalam table
-$simpan = mysql_query("insert into tb_rekmed values ('$no_rekmed','$kode_pasien','$id_unitmedis','$diagnosa1','$diagnosa2','$keterangan','$tanggal')");
+    if (isset($_POST['simpan'])) {
+        // Mengambil nilai dari form
+        $no_rekmed = $_POST['no_rekmed'];
+        $kode_pasien = $_POST['kode_pasien'];
+        $id_unitmedis = $_POST['id_unitmedis'];
+        $diagnosa = $_POST['diagnosa'];
+        $keterangan = $_POST['keterangan'];
+        $tanggal = $_POST['tanggal'];
+        // Query untuk menyimpan data ke dalam tabel
+        $sql_insert = "INSERT INTO tb_rekmed (no_rekmed, kode_pasien, id_unitmedis, diagnosa, keterangan, tanggal) 
+                       VALUES ('$no_rekmed', '$kode_pasien', '$id_unitmedis', '$diagnosa', '$keterangan', '$tanggal')";
 
-//$simpon = mysql_query("insert into t_keluarga_aset(no_ktp,menurut_dinding,menurut_lantai,menurut_atap,kategori) values ('$no_ktp','$dinding
-//','$lantai','$atap','$kategori')");
+        // Eksekusi query
+        $result = mysqli_query($conn, $sql_insert);
 
-echo"<script>window.alert('Data Sudah Tersimpan')
-window.location='data-rekmed.php'</script>";
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil disimpan');</script>";
+            echo "<script>window.location='?page=rekam-medis';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat menyimpan data');</script>";
+        }
+    } elseif (isset($_POST['edit'])) {
+        // Mengambil nilai dari form
+        $no_rekmed = $_POST['no_rekmed'];
+        $kode_pasien = $_POST['kode_pasien'];
+        $id_unitmedis = $_POST['id_unitmedis'];
+        $diagnosa = $_POST['diagnosa'];
+        $keterangan = $_POST['keterangan'];
+        $tanggal = $_POST['tanggal'];
+        // Query untuk melakukan update data ke dalam tabel
+        $sql_update = "UPDATE tb_rekmed SET 
+        kode_pasien = '$kode_pasien', 
+        id_unitmedis = '$id_unitmedis', 
+        diagnosa = '$diagnosa', 
+        keterangan = '$keterangan', 
+        tanggal = '$tanggal'
+        WHERE no_rekmed = '$no_rekmed'";
+
+        // Eksekusi query
+        $result = mysqli_query($conn, $sql_update);
+
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil diupdate');</script>";
+            echo "<script>window.location='?page=rekam-medis';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat mengupdate data');</script>";
+        }
+    }
 }
-?>

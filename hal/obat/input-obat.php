@@ -2,59 +2,39 @@
 session_start();
 if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
-                    window.location = '../../index.php'</script>";
+            window.location = '../../index.php'</script>";
 } else {
 
+	include "../../koneksi/koneksi.php";
 ?>
 
-	<?php
-	include "../../koneksi/koneksi.php";
-	$sql = "SELECT MAX(RIGHT(kode_obat,4)) AS terakhir FROM tb_obat";
-	$hasil = mysqli_query($conn, $sql);
-	$data = mysqli_fetch_array($hasil);
-	$lastID = $data['terakhir'];
-	$lastNoUrut = (int) $lastID;
-	$nextNoUrut = $lastNoUrut + 1;
-	$nextID = "OBT-" . sprintf("%04s", $nextNoUrut);
-
-
-	?>
 	<form action="" method="POST" id="keywordForm">
 		<div class="row">
 			<div class="col-12 col-md-12 col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<div class="alert alert-info">
+						<div class="alert" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
 							<b>Form</b> Tambah Data Obat
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<div class="form-group">
-									<!-- <label>Type Farmasi</label> -->
-									<select class="form-control" name="type_farmasi" id="type_farmasi">
-										<option>Jenis Farmasi ...</option>
-										<option value="medicine">Medis</option>
-										<option value="vaccine">Vaksin</option>
-										<option value="supplement">Suplemen</option>
-										<option value="herbal">Herbal</option>
-									</select>
-								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<div class="input-group mb-3">
-										<input type="text" name="nama_obat" class="form-control" placeholder="" aria-label="">
+										<input style="border-radius: 20px 0 0 20px;" type="text" name="nama_obat" class="form-control" placeholder="Contoh: Clindamycin" aria-label="">
 										<div class="input-group-append">
-											<button name="cari" type="submit" class="btn btn-primary" type="button">Cari Obat</button>
+											<button name="cari" style="border-radius: 0 20px 20px 0; background-image: linear-gradient( 109.5deg,  rgba(229,233,177,1) 11.2%, rgba(223,205,187,1) 100.2% ); color: #000;" type="submit" class="btn btn-sm" type="button">Cari Obat</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 
-
-						<h6>Data Berdasarkan Pencarian Obat</h6>
-						<table class='table table-striped' id='table-2' style='width: 100%;'>
+						<button class="btn btn-sm btn-info" title="Anda akan menambahkan data yang dipilih ke inventory anda" name="simpan" type="submit">Tambahkan</button>
+						<a href="?page=obat" class="btn btn-sm btn-warning">Batal</a>
+						<h6 class="mt-4">Data Berdasarkan Pencarian Obat</h6>
+						<table class='table table-striped table-hover' id='table-2' style='width: 100%;'>
 							<thead class='table-light'>
 								<tr>
 									<th class='text-center'>
@@ -62,10 +42,11 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 									</th>
 									<th>Nama Produk</th>
 									<th style='width: 200px;'>Detail Produk</th>
-									<th>Tipe Produk</th>
+									<th>Bentuk Produk</th>
 									<th>NIE</th>
 									<th>Kode KFA</th>
 									<th>Manufaktur</th>
+									<th>Zat Aktif</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -115,29 +96,34 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 									} else {
 										$response = json_decode($product_output, true);
 
-
 										foreach ($response['items']['data'] as $product) {
+
 											$namaDagang = $product['nama_dagang'] == null ? $product['name'] : $product['nama_dagang'];
 											$name = $product['name'];
 											$dosage_form = $product['dosage_form']['name'];
 											$nie = $product['nie'];
 											$kfa_code = $product['kfa_code'];
 											$manufacturer = $product['manufacturer'];
-
+											$zat_aktif = $product['active_ingredients'][0]['zat_aktif'];
+											$JumlahZatAktif = $product['active_ingredients'][0]['kekuatan_zat_aktif'];
+											$hargaFix = $product['fix_price'];
+											$hetPrice = $product['het_price'];
+											$harga = $hargaFix == 0 ? $hetPrice : $hargaFix;
+											$formatHarga = number_format($harga, 0, ',', '.');
 											echo "
-										<tr>
-											<td class='text-center'>
-												<input type='checkbox' name='product[]' value='$product[id]'>
-											</td>
-											<td>$namaDagang</td>
-											<td>$name</td>
-											<td>$dosage_form</td>
-											<td>$nie</td>
-											<td>$kfa_code</td>
-											<td>$manufacturer</td>
-										</tr>
-						
-										";
+                                        <tr>
+                                            <td class='text-center'>
+                                                <input type='checkbox' name='products[]' value='" . json_encode($product) . "'>
+                                            </td>
+                                            <td>$namaDagang</td>
+                                            <td>$name</td>
+                                            <td>$dosage_form</td>
+                                            <td>$nie</td>
+                                            <td>$kfa_code</td>
+                                            <td>$manufacturer</td>
+                                            <td>$zat_aktif $JumlahZatAktif</td>
+                                        </tr>
+                                        ";
 										}
 
 										curl_close($ch);
@@ -146,83 +132,66 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 								?>
 							</tbody>
 						</table>
-						<h6>Data Berdasarkan Tipe Farmasi</h6>
-						<table class="table table-striped" id="table-2" style="width: 100%;">
-							<thead class="table-light">
-								<tr>
-									<th class="text-center">
-										<i class="fas fa-th"></i>
-									</th>
-									<th>Nama Produk</th>
-									<th style="width: 200px;">Detail Produk</th>
-									<th>Tipe Produk</th>
-									<th>NIE</th>
-									<th>Kode KFA</th>
-									<th>Manufaktur</th>
-								</tr>
-							</thead>
-							<tbody id="table-body">
-							</tbody>
-						</table>
-						<!-- <div class="card-footer text-right">
-							<button name="simpan" type="submit" class="btn btn-primary mr-1">Simpan</button>
-							<a href="?page=obat" class="btn btn-sm btn-warning" type="reset">Batal</a>
-						</div> -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</form>
 
-	<script>
-		document.getElementById('type_farmasi').addEventListener('change', async function() {
-			const typeFarmasi = this.value.trim();
-			const tableBody = document.getElementById('table-body');
+	<?php
+	if (isset($_POST['simpan'])) {
+		if (!empty($_POST['products'])) {
+			$data = [];
+			foreach ($_POST['products'] as $productJson) {
+				$product = json_decode($productJson, true);
+				$namaDagang = $product['nama_dagang'] == null ? $product['name'] : $product['nama_dagang'];
+				$name = $product['name'];
+				$dosage_form = $product['dosage_form']['name'];
+				$nie = $product['nie'];
+				$kfa_code = $product['kfa_code'];
+				$manufacturer = $product['manufacturer'];
+				$hargaFix = $product['fix_price'];
+				$hetPrice = $product['het_price'];
+				$harga = $hargaFix == 0 ? $hetPrice : $hargaFix;
 
-			if (typeFarmasi.length > 0) {
-				try {
-					const response = await fetch('../hal/obat/api-obat.php', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/x-www-form-urlencoded'
-						},
-						body: 'type_farmasi=' + encodeURIComponent(typeFarmasi)
-					});
-
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-
-					const data = await response.json();
-					const products = data.items.data;
-					tableBody.innerHTML = '';
-					products.map((product) => {
-						const str = product.name;
-						const firstWord = str.split(' ')[0];
-						const namaDagang = product.nama_dagang == null ? firstWord : product.nama_dagang;
-						const tr = document.createElement('tr');
-						tr.innerHTML = `
-							<td class="text-center">
-								<input type="checkbox" name="product[]" value="${product.id}">
-							</td>
-							<td>${firstWord}</td>
-							<td>${product.name}</td>
-							<td>${product.dosage_form.name}</td>
-							<td>${product.nie}</td>
-							<td>${product.kfa_code}</td>
-							<td>${product.manufacturer}</td>
-						`;
-						tableBody.appendChild(tr);
-					});
-
-				} catch (error) {
-					console.error('Error:', error);
-				}
-			} else {
-				tableBody.innerHTML = '';
+				$data[] = [
+					'nama_produk' => $namaDagang,
+					'detail_produk' => $name,
+					'bentuk' => $dosage_form,
+					'nie' => $nie,
+					'kfa' => $kfa_code,
+					'manufaktur' => $manufacturer,
+					'harga' => $harga
+				];
 			}
-		});
-	</script>
+			foreach ($data as $obat) {
+				$nama_produk = $obat['nama_produk'];
+				$detail_produk = $obat['detail_produk'];
+				$bentuk = $obat['bentuk'];
+				$nie = $obat['nie'];
+				$kfa = $obat['kfa'];
+				$manufaktur = $obat['manufaktur'];
+				$harga = $obat['harga'];
+
+				$stmt = $conn->prepare("INSERT INTO tb_obat (nama_produk, detail_produk, bentuk, nie, kfa, manufaktur) VALUES (?, ?, ?, ?, ?, ?)");
+				$stmt->bind_param("ssssss", $nama_produk, $detail_produk, $bentuk, $nie, $kfa, $manufaktur);
+				if ($stmt->execute()) {
+					echo "<script>
+					alert('Data obat berhasil disimpan');
+					window.location = '?page=obat';
+					</script>";
+				} else {
+					echo "<script>
+					alert('Gagal menyimpan data obat: " . $stmt->error . "');
+					window.location = '?page=obat';
+					</script>";
+				}
+			}
+		} else {
+			echo "<script>alert('Pilih setidaknya satu obat untuk disimpan');</script>";
+		}
+	}
+	?>
 <?php
 }
 ?>

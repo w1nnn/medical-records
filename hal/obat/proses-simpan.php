@@ -1,23 +1,30 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_POST['simpan'])){
-$kode_obat = $_POST['kode_obat'];
-$nama_obat = $_POST['nama_obat']; 
-$jenis = $_POST['jenis'];
-$satuan = $_POST['satuan'];
-$jumlah = $_POST['jumlah'];
-$harga = $_POST['harga'];
+session_start();
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+    echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+    exit; // Exiting to prevent further execution
+} else {
+    include "../../koneksi/koneksi.php";
 
-//memasukkan nilai nilai ke dalam table
-$simpan = mysql_query("insert into tb_obat values ('$kode_obat','$nama_obat','$jenis','$satuan','$jumlah','$harga')");
+    if (isset($_POST['edit'])) {
+        $kfa = $_POST['kfa'];
+        $harga = $_POST['harga'];
+        $stok = $_POST['stok'];
 
-//$simpon = mysql_query("insert into t_keluarga_aset(no_ktp,menurut_dinding,menurut_lantai,menurut_atap,kategori) values ('$no_ktp','$dinding
-//','$lantai','$atap','$kategori')");
+        $sql_update = "UPDATE tb_obat SET 
+                       harga = '$harga', 
+                       stok = '$stok'
+                       WHERE kfa = '$kfa'";
 
-echo"<script>window.alert('Data Sudah Tersimpan')
-window.location='data-obat.php'</script>";
+        $result = mysqli_query($conn, $sql_update);
+
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil diupdate');</script>";
+            echo "<script>window.location='?page=obat';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat mengupdate data');</script>";
+            echo "<script>window.location='?page=obat';</script>";
+        }
+    }
 }
-?>

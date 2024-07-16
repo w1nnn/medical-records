@@ -9,6 +9,8 @@
 		$foto = $_SESSION['foto'];
 		$nama = $_SESSION['nama'];
 		$password = $_SESSION['password'];
+
+
 	?>
 		<!DOCTYPE html>
 		<html lang="en">
@@ -257,8 +259,10 @@
 					</nav>
 					<div class="main-sidebar sidebar-style-2">
 						<aside id="sidebar-wrapper">
-							<div class="sidebar-brand">
-								<a href="">REKAM MEDIS</a>
+							<div class="sidebar-brand my-4">
+								<img src="../assets/img/logo.png" alt="" style="width: 37px;">
+								<b>KONDODEWATA</b>
+								<p style="margin-top: -28px; margin-right: 22px; font-style: italic; font-size: 10px;">Tana Toraja</p>
 							</div>
 							<div class="sidebar-brand sidebar-brand-sm">
 								<a href="index.html">St</a>
@@ -276,7 +280,7 @@
 									</ul>
 								</li>
 								<li><a class="nav-link" href="?page=pendaftaran-pasien"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
-								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Doketer</span></a></li>
+								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Dokter</span></a></li>
 								<li><a class="nav-link" href="?page=rekam-medis"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
 								<li><a class="nav-link" href="?page=transaksi"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
 								<li class="menu-header"></li>
@@ -333,12 +337,14 @@
 								} else if ($page == 'unit-medis') {
 									if ($act == '') {
 										include '../hal/unitmedis/data-unitmedis.php';
-									} else if ($act == 'tambah') {
-										include '../unitmedis/tambah.php';
+									} else if ($act == 'add') {
+										include '../hal/unitmedis/input-unitmedis.php';
 									} else if ($act == 'edit') {
-										include '../unitmedis/edit.php';
-									} else if ($act == 'hapus') {
-										include '../unitmedis/hapus.php';
+										include '../hal/unitmedis/edit-data.php';
+									} else if ($act == 'del') {
+										include '../hal/unitmedis/proses-hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/unitmedis/proses-simpan.php';
 									}
 								} else if ($page == 'obat') {
 									if ($act == '') {
@@ -347,7 +353,7 @@
 										include '../hal/obat/input-obat.php';
 									} else if ($act == 'edit') {
 										include '../hal/obat/edit-data.php';
-									} else if ($act == 'hapus') {
+									} else if ($act == 'del') {
 										include '../hal/obat/proses-hapus.php';
 									} else if ($act == 'simpan') {
 										include '../hal/obat/proses-simpan.php';
@@ -379,12 +385,14 @@
 								} else if ($page == 'rekam-medis') {
 									if ($act == '') {
 										include '../hal/rekammedis/data-rekmed.php';
-									} else if ($act == 'tambah') {
-										include '../rekammedis/tambah.php';
+									} else if ($act == 'add') {
+										include '../hal/rekammedis/input-rekmed.php';
 									} else if ($act == 'edit') {
-										include '../rekammedis/edit.php';
-									} else if ($act == 'hapus') {
-										include '../rekammedis/hapus.php';
+										include '../hal/rekammedis/edit-data.php';
+									} else if ($act == 'del') {
+										include '../hal/rekammedis/proses-hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/rekammedis/proses-simpan.php';
 									}
 								} else if ($page == 'transaksi') {
 									if ($act == '') {

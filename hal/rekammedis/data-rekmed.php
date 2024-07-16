@@ -10,8 +10,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 ?>
 
 	<div class="card-body p-0">
-		<div class="table-responsive">
-			<a href="?page=pasien&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
+		<div class=" table table-hover table-responsive">
+			<a href="?page=rekam-medis&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
 			<table class="table table-striped" id="table-2">
 				<thead class="table-light">
 					<tr>
@@ -39,8 +39,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?php echo $data['keterangan']; ?></td>
 							<td><?php echo $data['tanggal']; ?></td>
 							<td>
-								<a href="edit-data.php?no_rekmed=<?= $data['no_rekmed']; ?>" class="btn btn-sm bg-info">Edit</a>
-								<a href="proses-hapus.php?no_rekmed=<?= $data['no_rekmed']; ?>" class="btn btn-sm bg-danger">Delete</a>
+								<a href="?page=rekam-medis&act=edit&no_rekmed=<?= $data['no_rekmed']; ?>" class="btn btn-sm bg-info">Edit</a>
+								<a href="?page=rekam-medis&act=del&no_rekmed=<?= $data['no_rekmed']; ?>" class="btn btn-sm bg-danger">Delete</a>
 							</td>
 						</tr>
 					<?php endwhile; ?>

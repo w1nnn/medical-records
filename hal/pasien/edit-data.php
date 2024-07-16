@@ -25,7 +25,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 			<div class="col-12 col-md-12 col-lg-12">
 				<div class="card">
 					<div class="card-body">
-						<div class="alert alert-info">
+						<div class="alert" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
 							<b>Form</b> Edit Data Pasien
 						</div>
 						<div class="form-group">

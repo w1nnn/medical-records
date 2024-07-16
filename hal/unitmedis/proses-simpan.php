@@ -1,23 +1,45 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_POST['simpan'])){
-$id_unitmedis = $_POST['id_unitmedis'];
-$nama_unitmedis = $_POST['nama_unitmedis']; 
-$spesialis = $_POST['spesialis']; 
-$alamat = $_POST['alamat'];
-$telpon = $_POST['telpon'];
+session_start();
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+    echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+    exit;
+} else {
+    include "../../koneksi/koneksi.php";
+
+    if (isset($_POST['simpan'])) {
+        $id_unitmedis = $_POST['id_unitmedis'];
+        $nama_unitmedis = $_POST['nama_unitmedis'];
+        $spesialis = $_POST['spesialis'];
+        $alamat = $_POST['alamat'];
+        $telpon = $_POST['telpon'];
+        $sql_insert = "INSERT INTO tb_unitmedis (id_unitmedis, nama_unitmedis, spesialis, alamat, telpon) 
+                       VALUES ('$id_unitmedis', '$nama_unitmedis', '$spesialis', '$alamat', '$telpon')";
+
+        $result = mysqli_query($conn, $sql_insert);
+
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil disimpan');</script>";
+            echo "<script>window.location='?page=unit-medis';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat menyimpan data');</script>";
+        }
+    } elseif (isset($_POST['edit'])) {
+        $id_unitmedis = $_POST['id_unitmedis'];
+        $nama_unitmedis = $_POST['nama_unitmedis'];
+        $spesialis = $_POST['spesialis'];
+        $alamat = $_POST['alamat'];
+        $telpon = $_POST['telpon'];
 
 
-//memasukkan nilai nilai ke dalam table
-$simpan = mysql_query("insert into tb_unitmedis values ('$id_unitmedis','$nama_unitmedis','$spesialis','$alamat','$telpon')");
-
-//$simpon = mysql_query("insert into t_keluarga_aset(no_ktp,menurut_dinding,menurut_lantai,menurut_atap,kategori) values ('$no_ktp','$dinding
-//','$lantai','$atap','$kategori')");
-
-echo"<script>window.alert('Data Sudah Tersimpan')
-window.location='data-unitmedis.php'</script>";
+        $sql_update = "UPDATE tb_unitmedis SET nama_unitmedis = '$nama_unitmedis', spesialis = '$spesialis', alamat = '$alamat', telpon = '$telpon' WHERE id_unitmedis = '$id_unitmedis'";
+        $result = mysqli_query($conn, $sql_update);
+        if ($result) {
+            echo "<script>alert('Data pasien berhasil diubah');</script>";
+            echo "<script>window.location='?page=unit-medis';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Terjadi kesalahan saat mengubah data');</script>";
+        }
+    }
 }
-?>

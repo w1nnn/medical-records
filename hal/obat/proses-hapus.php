@@ -1,17 +1,31 @@
 <?php
-/* memasukkan koneksi*/
-require_once("../../koneksi/koneksi.php");
-//include "koneksi.php";
-/* memanggil variable dan nilai – nilai nya .*/
-if(isset($_GET['kode_obat'])){
-$kode_obat = $_GET['kode_obat'];
+include "../../koneksi/koneksi.php";
 
+if (isset($_GET['kfa'])) {
+    $kfa = $_GET['kfa'];
 
-//memasukkan nilai nilai ke dalam table
+    $stmt = $conn->prepare("DELETE FROM tb_obat WHERE kfa = ?");
+    $stmt->bind_param("s", $kfa);
+    $stmt->execute();
 
-$ubah = mysql_query("delete from tb_obat where kode_obat = '$kode_obat'");
+    if ($stmt->affected_rows > 0) {
+        echo "<script>
+            alert('Data telah dihapus!');
+            window.location='?page=obat';
+            </script>";
+    } else {
+        echo "<script>
+            alert('Data tidak ditemukan atau tidak dapat dihapus!');
+            window.location='?page=obat';
+            </script>";
+    }
 
-echo"<script>window.alert('Data $kode_obat Sudah Dihapus')
-window.location='data-obat.php'</script>";
+    $stmt->close();
+} else {
+    echo "<script>
+        alert('Kode obat tidak ditemukan!');
+        window.location='?page=obat';
+        </script>";
 }
-?>
+
+$conn->close();

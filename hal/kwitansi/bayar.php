@@ -39,7 +39,7 @@ foreach ($resepArray as $resep) {
     while ($row = mysqli_fetch_assoc($data)) {
         $id = $row['kode_obat'];
 
-        $queryObat = "SELECT * FROM tb_obat WHERE kode_obat = '$id'";
+        $queryObat = "SELECT * FROM tb_obat WHERE kfa = '$id'";
         $dataObat = mysqli_query($conn, $queryObat);
 
         if (!$dataObat) {
@@ -51,7 +51,7 @@ foreach ($resepArray as $resep) {
             $id = $obat['kode_obat'];
             $price = $obat['harga'];
             $quantity = $row['jumlah'];
-            $item = $obat['nama_obat'];
+            $item = $obat['nama_produk'];
 
             $items[] = [
                 'id' => $id,
@@ -85,7 +85,11 @@ foreach ($resepArray as $resep) {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="invoice-title">
-                        <h2>Puskesmas Kondodewata</h2>
+                        <h2>
+                            <img src="../assets/img/logo.png" style="width: 50px;" alt="Gambar.png">
+                            Puskesmas Kondodewata
+                        </h2>
+                        <p style="margin-top: -30px; margin-left: 60px; font-style: italic; font-weight: bold;">Tana Toraja</p>
                         <?php if ($order_id != '-') : ?>
                             <div id="order" class="invoice-number"></div>
                         <?php endif; ?>
@@ -331,10 +335,10 @@ foreach ($resepArray as $resep) {
             }
 
             const data = await response.json();
-            console.log("Transaction status:", data);
+            const statusTransaksi = data.transaction_status == 'settlement' ? 'Lunas' : 'Belum Lunas';
             const orderElement = document.querySelector('#order').innerHTML = data.order_id;
             const orderTimeElement = document.querySelector('#order-date').innerHTML = data.transaction_time;
-            const payMethodElement = document.querySelector('#pay-method').innerHTML = `${data.payment_type}`;
+            const payMethodElement = document.querySelector('#pay-method').innerHTML = `${data.payment_type} <b>${statusTransaksi}</b>`;
             const printElement = document.querySelector('#print');
             printElement.addEventListener('click', function(e) {
                 window.print();
