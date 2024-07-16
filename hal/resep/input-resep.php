@@ -1,395 +1,258 @@
 <?php
 session_start();
-if (empty($_SESSION['username']) AND empty($_SESSION['password'])){
-	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen');
-					window.location = '../../index.php'</script>";
-}
-else{
-
+if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+	echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
+	exit; // Exiting to prevent further execution
+} else {
 ?>
+	<div class="container mt-4">
 
-<html>
-<head>
+		<div class="alert" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
+			<strong>Input Data Resep Obat</strong>
+		</div>
 
-	<link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="../../css/footer.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../../css/home.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="../../css/table.css" rel="stylesheet" type="text/css" media="all" />
-<!-- ============= awal Auto complete ================ -->
-<link rel="stylesheet" href="../../css/style2.css" />
-    <link rel="stylesheet" href="../../css/jquery-ui.css" />
-    <script src="../../js/jquery-1.8.3.js"></script>
-    <script src="../../js/jquery-ui.js"></script>
- 
-    <script>
-/*autocomplete muncul setelah user mengetikan minimal2 karakter */
-    $(function() {  
-        $( "#nama_obat" ).autocomplete({
-         source: "data.php",  
-           minLength:2, 
-        });
-    });
-    </script>    
-<!-- ============= akhir Auto complete ================ -->    
-            
-</head>
+		<div class="row">
+			<div class="col-md-6">
+				<form action="proses-tambah.php" method="post">
+					<?php
+					include "../../koneksi/koneksi.php";
+					$sqlx = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
+					$hasilx = mysqli_query($conn, $sqlx);
+					$datax = mysqli_fetch_array($hasilx);
+					$lastIDx = $datax['terakhir'];
+					$lastNoUrutx = (int) $lastIDx;
+					$nextNoUrutx = $lastNoUrutx + 1;
+					$nextIDx = "RSP-" . sprintf("%04s", $nextNoUrutx);
+					?>
+					<input name="no_resep" type="text" value="<?php echo $nextIDx; ?>" hidden>
+					<div class="form-group">
+						<select class="form-control" name="type_farmasi" id="type_farmasi">
+							<option>Jenis Obat ...</option>
+							<option value="medicine">Umum</option>
+							<option value="vaccine">Vaksin</option>
+							<option value="supplement">Suplemen</option>
+							<option value="herbal">Herbal</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="nama_obat">Nama Obat</label>
+						<select name="nama_obat" id="nama_obat" class="form-control" required>
+							<option value="0">-Pilih-</option>
 
-<body class="home">
-    <div id="bg">
-	<div id="page">
-	
-	
-	<?php
-	include "../header.php";
-	?>
-	
-	
-    <div id="body_content">
-	
-	<br/>
-	<center><b>INPUT DATA RESEP OBAT</b></center>
-	<hr>
-		<table width="100%"  border="0" cellspacing="0" cellpadding="0" style="margin-left:-11px">
-		
-		
-		
-		
-<tr>
+						</select>
 
-<td>
-<font style="color:white">...</font>
-</td>
+					</div>
+					<div class="form-group">
+						<label for="detail_obat">Detail Obat</label>
+						<input type="text" name="detail_obat" id="detail_obat" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label for="bentuk">Bentuk</label>
+						<input type="text" name="bentuk" id="bentuk" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label for="kode_obat">Kode KFA</label>
+						<input type="text" name="kode_obat" id="kode_obat" class="form-control" readonly>
+					</div>
+					<div class="form-group">
+						<label for="nie">No Izin Edar (NIE)</label>
+						<input type="text" name="nie" id="nie" class="form-control" readonly>
+					</div>
 
+					<div class="form-group">
+						<label for="stok">Sisa Stok</label>
+						<input type="text" name="stok" id="stok" class="form-control" readonly>
+					</div>
 
+					<div class="form-group">
+						<label for="qty">QTY</label>
+						<input type="text" name="qty" id="qty" class="form-control" required>
+					</div>
 
-	
-	
-	
-<td>
+					<div class="form-group">
+						<label for="aturan_pakai">Aturan Pakai</label>
+						<input type="text" name="aturan_pakai" id="aturan_pakai" class="form-control" required>
+					</div>
 
+					<button type="submit" name="tambah" class="btn btn-primary btn-sm">Tambah</button>
+				</form>
+			</div>
 
+			<div class="col-md-6">
+				<form action="proses-simpan.php" method="post">
+					<?php
+					include "../../koneksi/koneksi.php";
+					$sql = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
+					$hasil = mysqli_query($conn, $sql);
+					$data = mysqli_fetch_array($hasil);
+					$lastID = $data['terakhir'];
+					$lastNoUrut = (int) $lastID;
+					$nextNoUrut = $lastNoUrut + 1;
+					$nextID = "RSP-" . sprintf("%04s", $nextNoUrut);
+					?>
+					<div class="form-group">
+						<label for="no_resep">NO. RESEP</label>
+						<input type="text" name="no_resep" class="form-control" value="<?php echo $nextID; ?>" disabled>
+						<input type="hidden" name="no_resepx" value="<?php echo $nextID; ?>">
+					</div>
 
+					<div class="form-group">
+						<label for="no_rekmed">No. Rekam Medis</label>
+						<select name="no_rekmed" id="no_rekmed" class="form-control" onchange="noRekmed(this.value)" required>
+							<option value="0">-Pilih-</option>
+							<?php
+							include "../../koneksi/koneksi.php";
+							$resul = mysqli_query($conn, "select * from tb_rekmed");
+							$jsArrayz = "var dt_rekmed = new Array();\n";
+							while ($row = mysqli_fetch_array($resul)) {
+								echo '<option value="' . $row['no_rekmed'] . '">' . $row['no_rekmed'] . '</option>';
+								$jsArrayz .= "dt_rekmed['" . $row['no_rekmed'] . "'] = {kode_pasien:'" . addslashes($row['kode_pasien']) . "'};\n";
+							}
+							?>
+						</select>
+					</div>
 
-<form action="proses-tambah.php" name="" method="post">
-<table width="100%" border="1" cellpadding="5" cellspacing="1">
+					<div class="form-group">
+						<label for="kode_pasien">Kode Pasien</label>
+						<input type="text" name="kode_pasien" id="kode_pasien" class="form-control" readonly>
+					</div>
 
+					<div class="form-group">
+						<label for="tanggal">Tanggal Resep</label>
+						<input type="text" name="tanggal" id="tanggal" class="form-control" value="<?php echo date('Y-m-d'); ?>" readonly>
+					</div>
+					<div class="d-flex justify-content-end">
+						<button type="submit" name="simpan" class="btn btn-sm btn-primary mx-2">Simpan</button>
+						<button type="reset" name="batal" class="btn btn-danger btn-sm">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-						<?php
-			include "../../koneksi/koneksi.php";
-/*pertama kita panggil colom yang akan kita gunakan untuk ID kita dengan menyaring nilai maksimum */
-$sqlx ="SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
-//mengecek hasil atau value yang dihasilkan dari query yang disimpan pada variable sql
-  $hasilx = mysql_query($sqlx);
-//memecah table hasil query
-  $datax = mysql_fetch_array($hasilx);
-//mengambil cell atau 1 kotak bagian dari table yaitu cell id_anggota yang dialiaskan terakhir
-  $lastIDx = $datax['terakhir'];
-  // baca nomor urut  id transaksi terakhir
- $lastNoUrutx = (int) $lastIDx;
-  // nomor urut ditambah 1
-  $nextNoUrutx = $lastNoUrutx + 1;
-  // membuat format nomor berikutnya
-  $nextIDx = "RSP-".sprintf("%04s",$nextNoUrutx);
-// selesai,,, untuk memanggil ID otomatis ini  bisa memasangkan cara
- ?>
- 
- <input name="no_resep" type="text" value="<?php echo $nextIDx; ?>" style="display: none"> 
- 
-				
-		
-		
-		
-		<tr>
-		<th>Nama Obat</th>
-		<td>
-		  
-		  <input type="text" name="nama_obat" id="nama_obat" onClick="kdObat(this.value)" placeholder="ketik nama obat" >
-		<!-- 
-		  <select name="nama_obat" id="nama_obat" onChange="kdObat(this.value)" >
-        <option value=0>-Pilih-</option>
-        <?php
-		include "../../koneksi/koneksi.php";
-    $result = mysql_query("select * from tb_obat");   
-    $jsArray = "var dt_obat = new Array();\n";       
-    while ($row = mysql_fetch_array($result)) {   
-        echo '<option value="' . $row['nama_obat'] . '">' . $row['nama_obat'] . '</option>';   
-        $jsArray .= "dt_obat['" . $row['nama_obat'] . "'] = {kode_obat:'" . addslashes($row['kode_obat']) . "',jenis:'".addslashes($row['jenis'])."',jumlah:'".addslashes($row['jumlah'])."'};\n";   
-    }     
-    ?>   
-       </select> --><em>harus diisi</em>
-		</td>
-		</tr>
-		
-		
-		
-		
-			<tr>
-		<td>Kode Obat</td>
-		<td><input name="kode_obat" id="kode_obat"type="text" size="35" value=""> <em><font style="color:red">Otomatis</font></em></td>
-		</tr>
-		
-		<tr>
-		<td>Jenis Obat</td>
-		<td><input name="jenis" id="jenis" type="text" size="35" value=""> <em><font style="color:red">Otomatis</font></em></td>
-		</tr>
+		<script type="text/javascript">
+			<?php echo $jsArrayz; ?>
 
-		
-		<tr>
-		<td>Sisa Stok</td>
-		<td><input name="jumlah" id="jumlah" type="text" size="35" value=""> <em><font style="color:red">Otomatis</font></em></td>
-		</tr>
-		
-		<tr>
-		<td>QTY</td>
-		<td><input name="qty" type="text" size="35" value=""> <em>Harus diisi</em></td>
-		</tr>
-		
-		<tr>
-		<td>Aturan Pakai</td>
-		<td><input name="aturan_pakai" type="text" size="35" value=""> <em>Harus diisi</em></td>
-		</tr>
-		
-		
-		<tr>
-		<td></td>
-		<td><center><input name="tambah" type="submit" value="Tambah"></center></td>
-		</tr>
-		
-		
-				 <script type="text/javascript">   
-    <?php echo $jsArray; ?> 
-    function kdObat(nama_obat){ 
-    document.getElementById('kode_obat').value = dt_obat[nama_obat].kode_obat; 
-    document.getElementById('jenis').value = dt_obat[nama_obat].jenis; 
-	document.getElementById('jumlah').value = dt_obat[nama_obat].jumlah; 
-    }; 
-    </script>
-		
-	
-	
-	
-</table>
-</form>
+			function noRekmed(no_rekmed) {
+				document.getElementById('kode_pasien').value = dt_rekmed[no_rekmed].kode_pasien;
+			}
+		</script>
 
-
-
-				</td>
-				
-				
-				
-				
-					
-<td>
-<font style="color:white">...</font>
-</td>
-	
-	
-	
-	
-<td>
-		<form action="proses-simpan.php" name="" method="post">
-		
-		
-		
-		
-		
-		
-
-		 <table width="100%" border="1" cellpadding="5" cellspacing="1">
-		
-		
-		
-		<?php
-			include "../../koneksi/koneksi.php";
-/*pertama kita panggil colom yang akan kita gunakan untuk ID kita dengan menyaring nilai maksimum */
-$sql ="SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
-//mengecek hasil atau value yang dihasilkan dari query yang disimpan pada variable sql
-  $hasil = mysql_query($sql);
-//memecah table hasil query
-  $data = mysql_fetch_array($hasil);
-//mengambil cell atau 1 kotak bagian dari table yaitu cell id_anggota yang dialiaskan terakhir
-  $lastID = $data['terakhir'];
-  // baca nomor urut  id transaksi terakhir
- $lastNoUrut = (int) $lastID;
-  // nomor urut ditambah 1
-  $nextNoUrut = $lastNoUrut + 1;
-  // membuat format nomor berikutnya
-  $nextID = "RSP-".sprintf("%04s",$nextNoUrut);
-// selesai,,, untuk memanggil ID otomatis ini  bisa memasangkan cara
- ?>
- 
- 
- 
-		  <tr>
-			<th width="120"><b>NO. RESEP</b></th>
-			<th><input name="no_rosop" type="text" size="15" value=" <?php echo  $nextID;?>" disabled></th>
-			<input name="no_resepx" type="hidden" size="15" value=" <?php echo  $nextID;?>">
-		  </tr>
-		   
-		  
-			<tr>
-		<td>No. Rekam Medis</td>
-		<td>
-		<select name="no_rekmed" id="no_rekmed" onChange="noRekmed(this.value)" >
-        <option value=0>-Pilih-</option>
-        <?php
-		include "../../koneksi/koneksi.php";
-    $resul = mysql_query("select * from tb_rekmed");   
-    $jsArrayz = "var dt_rekmed = new Array();\n";       
-    while ($row = mysql_fetch_array($resul)) {   
-        echo '<option value="' . $row['no_rekmed'] . '">' . $row['no_rekmed'] . '</option>';   
-        $jsArrayz .= "dt_rekmed['" . $row['no_rekmed'] . "'] = {nama_pasien:'" . addslashes($row['nama_pasien']) . "'};\n";   
-    }     
-    ?>   
-        </select> <em>harus diisi</em>
-		</td>
-		</tr>
-		
-		<tr>
-		<td>Nama Pasien</td>
-		<td><input name="nama_pasien" id="nama_pasien" type="text" value="" disabled> <em><font style="color:red">Otomatis</font></em></td>
-		</tr>
-		
-		
-		 <script type="text/javascript">   
-    <?php echo $jsArrayz; ?> 
-    function noRekmed(no_rekmed){ 
-    document.getElementById('nama_pasien').value = dt_rekmed[no_rekmed].nama_pasien; 
-
-    }; 
-    </script>
-
-	
-				  <?php
-date_default_timezone_set('Asia/Jakarta');
-$tanggal= mktime(date("m"),date("d"),date("Y"));
-$tglsekarang = date("Y-m-d", $tanggal);
-?>
-
-<tr>
-		<th>::::</th>
-		<th>::::</th>
-		</tr>
-		
-		<tr>
-		<td>Tanggal Resep</td>
-		<td><input name="tanggal" id="tanggal"type="text" size="10" value="<?php echo $tglsekarang;?>"> <em><font style="color:red">Otomatis</font></em></td>
-		</tr>
-		<tr>
-		<th>::::</th>
-		<th>::::</th>
-		</tr>
-<tr>
-			<td><center><input name="simpan" type="submit" value="Simpan"></center></td><td><center><input name="batal" type="reset" value="Batal"></center></td>
-	</tr>	   
-		</table>
-		
-		
-
-		
-		
-		
-		
-		</form>
-	</td>	
-	
-
-
-		</tr>
-		
-		
-		
-		
-		
-		
-	<tr>
-
-	
-	
+		<div class="content mt-4">
 			<?php
-			include "../../koneksi/koneksi.php";
-/*pertama kita panggil colom yang akan kita gunakan untuk ID kita dengan menyaring nilai maksimum */
-$sqlz ="SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
-//mengecek hasil atau value yang dihasilkan dari query yang disimpan pada variable sql
-  $hasilz = mysql_query($sqlz);
-//memecah table hasil query
-  $dataz = mysql_fetch_array($hasilz);
-//mengambil cell atau 1 kotak bagian dari table yaitu cell id_anggota yang dialiaskan terakhir
-  $lastIDz = $dataz['terakhir'];
-  // baca nomor urut  id transaksi terakhir
- $lastNoUrutz = (int) $lastIDz;
-  // nomor urut ditambah 1
-  $nextNoUrutz = $lastNoUrutz + 1;
-  // membuat format nomor berikutnya
-  $nextIDz = "RSP-".sprintf("%04s",$nextNoUrutz);
-// selesai,,, untuk memanggil ID otomatis ini  bisa memasangkan cara
- ?>
- 
- 
- 
- 
-		<?php
-				include "../../koneksi/koneksi.php";
-				$result = mysql_query("select * from tb_resep_detail where no_resep = '$nextIDz'");
-				?>
-		                <table width="100%" border="1" cellpadding="5" cellspacing="1">
-						<b>Tabel Keranjang</b>
-						<hr>
-                <tr>
-                <th>No.</th>
-				<th>Kode Obat</th>
-                <th>Nama Obat</th>
-				<th>Qty</th>
-				<th>Aturan Pakai</th>
-                <th>Aksi</th>
-                </tr>
-                
-                <?php
-				include "../../koneksi/koneksi.php";
-                
+			$result = mysqli_query($conn, "select * from tb_resep_detail where no_resep = '$nextID'");
+			?>
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Kode Obat</th>
+						<th>Nama Obat</th>
+						<th>Qty</th>
+						<th>Aturan Pakai</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$no = 1;
+					while ($data = mysqli_fetch_array($result)) {
+					?>
+						<tr>
+							<td><?php echo $no; ?></td>
+							<td><?php echo $data['kode_obat']; ?></td>
+							<td><?php echo $data['nama_obat']; ?></td>
+							<td><?php echo $data['jumlah']; ?></td>
+							<td><?php echo $data['aturan_pakai']; ?></td>
+							<td>
+								<center><a href="proses-hapus.php?id=<?php echo $data['id_resep']; ?>" onclick="return confirm('Apakah Anda Yakin Menghapus Data?')">Hapus</a></center>
+							</td>
+						</tr>
+					<?php
+						$no++;
+					}
+					?>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-                $no = 1;
+	<script>
+		document.getElementById('type_farmasi').addEventListener('change', async function() {
+			const typeFarmasi = this.value.trim();
+			const namaObatSelect = document.getElementById('nama_obat');
 
-                while ($data = mysql_fetch_array($result)) {
-                ?>
-            <tr>
-                <td><center><?php echo $no; ?></center></td>
-				<td><?php echo $data['kode_obat']; ?></td>
-                <td><?php echo $data['nama_obat']; ?></td>
-                <td><?php echo $data['jumlah']; ?></td>
-				<td><?php echo $data['aturan_pakai']; ?></td>
-                <td><center><a href="proses-hapus.php?kode_obat=<?php echo trim($data['kode_obat']); ?>"><img src="http://localhost/puskesmas/images/hapus.png" /></a></center></td>
-			</tr>
-			<?php
-                                $no++;
-                }
-                ?>
-                
-                
-                </table>
-				
-</tr>
+			if (typeFarmasi.length > 0) {
+				try {
+					const response = await fetch('../hal/resep/get_tipe_obat.php', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
+						body: 'type_farmasi=' + encodeURIComponent(typeFarmasi)
+					});
+
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+
+					const data = await response.json();
+					let options = '<option value="0">-Pilih-</option>';
+					data.forEach(item => {
+						options += `<option value="${item.kfa}">${item.nama_produk} -- ${item.kfa} --</option>`;
+					});
+					namaObatSelect.innerHTML = options;
+
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			} else {
+				tableBody.innerHTML = '';
+			}
+		});
+
+		document.getElementById('nama_obat').addEventListener('change', async function() {
+			const namaObat = this.value.trim();
+			const detailObat = document.getElementById('detail_obat');
+			const bentuk = document.getElementById('bentuk');
+			const kodeObat = document.getElementById('kode_obat');
+			const nie = document.getElementById('nie');
+			const stok = document.getElementById('stok');
+
+			if (namaObat.length > 0) {
+				try {
+					const response = await fetch('../hal/resep/get_detail_obat.php', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded'
+						},
+						body: 'nama_obat=' + encodeURIComponent(namaObat)
+					});
+
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+
+					const dataByName = await response.json();
+					detailObat.value = dataByName[0].detail_produk;
+					bentuk.value = dataByName[0].bentuk;
+					kodeObat.value = dataByName[0].kfa;
+					nie.value = dataByName[0].nie;
+					stok.value = dataByName[0].stok;
 
 
 
-				
-</table>
-
-
-
-
-
-
-
-    </div>
-    
-		<?php
-		include "../footer.php";
-		?>
-
-    </div></div>
-</body>
-</html>
+				} catch (error) {
+					console.error('Error:', error);
+				}
+			} else {
+				detailObat.value = '';
+				bentuk.value = '';
+				kodeObat.value = '';
+				nie.value = '';
+				jumlah.value = '';
+			}
+		});
+	</script>
 <?php
 }
 ?>

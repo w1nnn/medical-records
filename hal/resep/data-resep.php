@@ -11,8 +11,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 
 	<div class="card-body p-0">
 		<div class="table-responsive">
-			<a href="?page=pasien&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
-			<table class="table table-striped" id="table-2">
+			<a href="?page=resep-dokter&act=add" class="btn btn-sm btn-primary mb-2" style="margin-right: 500px;">Add Data</a>
+			<table class="table table-hover table-striped" id="table-2">
 				<thead class="table-light">
 					<tr>
 						<th class="text-center">

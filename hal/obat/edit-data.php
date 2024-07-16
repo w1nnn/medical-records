@@ -40,6 +40,10 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 							<input name="bentuk" type="text" value="<?= $data['bentuk']; ?>" class="form-control" readonly>
 						</div>
 						<div class="form-group">
+							<label>Zat Aktif</label>
+							<input name="zat_aktif" type="text" value="<?= $data['zat_aktif']; ?>" class="form-control" readonly>
+						</div>
+						<div class="form-group">
 							<label>Nomor Izin Edar (NIE)</label>
 							<input name="nie" type="text" value="<?= $data['nie']; ?>" class="form-control" readonly>
 						</div>

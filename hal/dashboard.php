@@ -375,8 +375,8 @@
 								} else if ($page == 'resep-dokter') {
 									if ($act == '') {
 										include '../hal/resep/data-resep.php';
-									} else if ($act == 'tambah') {
-										include '../resep/tambah.php';
+									} else if ($act == 'add') {
+										include '../hal/resep/input-resep.php';
 									} else if ($act == 'edit') {
 										include '../resep/edit.php';
 									} else if ($act == 'hapus') {

@@ -21,6 +21,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						<th>Nama Produk</th>
 						<th>Detail Produk</th>
 						<th>Bentuk</th>
+						<th>Zat Aktif</th>
 						<th>NIE</th>
 						<th>Kode KFA</th>
 						<th>Manufaktur</th>
@@ -37,6 +38,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?= $data['nama_produk']; ?></td>
 							<td><?= $data['detail_produk']; ?></td>
 							<td><?= $data['bentuk']; ?></td>
+							<td><?= $data['zat_aktif']; ?></td>
 							<td><?= $data['nie']; ?></td>
 							<td><?= $data['kfa']; ?></td>
 							<td><?= $data['manufaktur']; ?></td>

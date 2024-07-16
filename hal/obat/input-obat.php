@@ -97,7 +97,8 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 										$response = json_decode($product_output, true);
 
 										foreach ($response['items']['data'] as $product) {
-
+											// var_dump($product);
+											$typeFarmasi = $product['farmalkes_type']['code'];
 											$namaDagang = $product['nama_dagang'] == null ? $product['name'] : $product['nama_dagang'];
 											$name = $product['name'];
 											$dosage_form = $product['dosage_form']['name'];
@@ -144,9 +145,11 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 			$data = [];
 			foreach ($_POST['products'] as $productJson) {
 				$product = json_decode($productJson, true);
+				$typeFarmasi = $product['farmalkes_type']['code'];
 				$namaDagang = $product['nama_dagang'] == null ? $product['name'] : $product['nama_dagang'];
 				$name = $product['name'];
 				$dosage_form = $product['dosage_form']['name'];
+				$zat_aktif = $product['active_ingredients'][0]['zat_aktif'];
 				$nie = $product['nie'];
 				$kfa_code = $product['kfa_code'];
 				$manufacturer = $product['manufacturer'];
@@ -158,23 +161,27 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 					'nama_produk' => $namaDagang,
 					'detail_produk' => $name,
 					'bentuk' => $dosage_form,
+					'zat_aktif' => $zat_aktif,
 					'nie' => $nie,
 					'kfa' => $kfa_code,
 					'manufaktur' => $manufacturer,
-					'harga' => $harga
+					'harga' => $harga,
+					'type_farmasi' => $typeFarmasi
 				];
 			}
 			foreach ($data as $obat) {
 				$nama_produk = $obat['nama_produk'];
 				$detail_produk = $obat['detail_produk'];
 				$bentuk = $obat['bentuk'];
+				$zat_aktif = $obat['zat_aktif'];
 				$nie = $obat['nie'];
 				$kfa = $obat['kfa'];
 				$manufaktur = $obat['manufaktur'];
 				$harga = $obat['harga'];
+				$typeFarmasi = $obat['type_farmasi'];
 
-				$stmt = $conn->prepare("INSERT INTO tb_obat (nama_produk, detail_produk, bentuk, nie, kfa, manufaktur) VALUES (?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param("ssssss", $nama_produk, $detail_produk, $bentuk, $nie, $kfa, $manufaktur);
+				$stmt = $conn->prepare("INSERT INTO tb_obat (nama_produk, detail_produk, bentuk, zat_aktif, nie, kfa, manufaktur, tipe_farmasi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt->bind_param("ssssssss", $nama_produk, $detail_produk, $bentuk, $zat_aktif, $nie, $kfa, $manufaktur, $typeFarmasi);
 				if ($stmt->execute()) {
 					echo "<script>
 					alert('Data obat berhasil disimpan');
