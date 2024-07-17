@@ -80,9 +80,8 @@ foreach ($items as $item) {
     $hargaTot += $item['totalHarga'];
 }
 ?>
-
 <input type="hidden" value="<?= $order_id; ?>">
-<form id="payment-form" action="" method="POST">
+<form id="payment-form">
     <div class="form-group">
         <input type="hidden" class="form-control" id="name" value="<?= htmlspecialchars($name) ?>" readonly>
     </div>
@@ -94,9 +93,6 @@ foreach ($items as $item) {
     <div class="form-group">
         <input type="hidden" class="form-control" id="email" value="<?= htmlspecialchars($email) ?>" readonly>
     </div>
-    <!-- <input type="text" name="ordr_id">
-    <input type="text" name="status_byr"> -->
-
 
     <div class="invoice">
         <div class="invoice-print">
@@ -330,6 +326,30 @@ foreach ($items as $item) {
         });
     });
     const idOrder = document.querySelector("input[type=hidden]").value;
+    const getTransactionStatus = async function(orderId) {
+        try {
+            const response = await fetch(`../hal/kwitansi/history.php?order_id=${orderId}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            const statusTransaksi = data.transaction_status == 'settlement' ? 'Lunas' : 'Belum Lunas';
+            document.querySelector('#order_id').innerHTML = data.order_id;
+            document.querySelector('#order-date').innerHTML = data.transaction_time;
+            document.querySelector('#pay-method').innerHTML = `${data.payment_type} <b>${statusTransaksi}</b>`;
+            await updateStatusBayar(data.order_id, statusTransaksi);
+            const printElement = document.querySelector('#print');
+            printElement.addEventListener('click', function(e) {
+                window.print();
+                e.preventDefault();
+            });
+        } catch (error) {
+            console.error("Fetch error:", error);
+        }
+    };
+
     async function updateStatusBayar(order_id, status) {
         console.log('Updating status bayar:', {
             order_id,
@@ -358,29 +378,6 @@ foreach ($items as $item) {
             console.error("Fetch error:", error);
         }
     }
-    const getTransactionStatus = async function(orderId) {
-        try {
-            const response = await fetch(`../hal/kwitansi/history.php?order_id=${orderId}`);
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const statusTransaksi = data.transaction_status == 'settlement' ? 'Lunas' : 'Belum Lunas';
-            document.querySelector('#order_id').innerHTML = data.order_id;
-            document.querySelector('#order-date').innerHTML = data.transaction_time;
-            document.querySelector('#pay-method').innerHTML = `${data.payment_type} <b>${statusTransaksi}</b>`;
-            await updateStatusBayar(data.order_id, statusTransaksi);
-            const printElement = document.querySelector('#print');
-            printElement.addEventListener('click', function(e) {
-                window.print();
-                e.preventDefault();
-            });
-        } catch (error) {
-            console.error("Fetch error:", error);
-        }
-    };
 
     getTransactionStatus(idOrder);
 </script>
