@@ -13,10 +13,10 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 
 		<div class="row">
 			<div class="col-md-6">
-				<form action="proses-tambah.php" method="post">
+				<form action="?page=resep-dokter&act=tambah" method="post">
 					<?php
 					include "../../koneksi/koneksi.php";
-					$sqlx = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
+					$sqlx = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep_detail";
 					$hasilx = mysqli_query($conn, $sqlx);
 					$datax = mysqli_fetch_array($hasilx);
 					$lastIDx = $datax['terakhir'];
@@ -24,10 +24,12 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					$nextNoUrutx = $lastNoUrutx + 1;
 					$nextIDx = "RSP-" . sprintf("%04s", $nextNoUrutx);
 					?>
-					<input name="no_resep" type="text" value="<?php echo $nextIDx; ?>" hidden>
+					<label for="nomor-resep">No. Resep</label>
+					<input class="form-control" id="nomor-resep" name="no_resep" type="text" value="<?php echo $nextIDx; ?>" readonly>
 					<div class="form-group">
+						<label for="type-farmasi">Jenis Obat</label>
 						<select class="form-control" name="type_farmasi" id="type_farmasi">
-							<option>Jenis Obat ...</option>
+							<option>Pilih ...</option>
 							<option value="medicine">Umum</option>
 							<option value="vaccine">Vaksin</option>
 							<option value="supplement">Suplemen</option>
@@ -40,7 +42,6 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<option value="0">-Pilih-</option>
 
 						</select>
-
 					</div>
 					<div class="form-group">
 						<label for="detail_obat">Detail Obat</label>
@@ -79,7 +80,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 			</div>
 
 			<div class="col-md-6">
-				<form action="proses-simpan.php" method="post">
+				<form action="?page=resep-dokter&act=simpan" method="post">
 					<?php
 					include "../../koneksi/koneksi.php";
 					$sql = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
@@ -92,8 +93,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					?>
 					<div class="form-group">
 						<label for="no_resep">NO. RESEP</label>
-						<input type="text" name="no_resep" class="form-control" value="<?php echo $nextID; ?>" disabled>
-						<input type="hidden" name="no_resepx" value="<?php echo $nextID; ?>">
+						<input type="text" name="no_resep" class="form-control" value="<?php echo $nextID; ?>" readonly>
+						<!-- <input type="hidden" name="no_resep" value="<?php echo $nextID; ?>"> -->
 					</div>
 
 					<div class="form-group">
@@ -123,6 +124,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					</div>
 					<div class="d-flex justify-content-end">
 						<button type="submit" name="simpan" class="btn btn-sm btn-primary mx-2">Simpan</button>
+						<a href="?page=resep-dokter" class="btn btn-sm btn-info" style="margin-right: 5px;">Selesai</a>
 						<button type="reset" name="batal" class="btn btn-danger btn-sm">Batal</button>
 					</div>
 				</form>
@@ -139,7 +141,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 
 		<div class="content mt-4">
 			<?php
-			$result = mysqli_query($conn, "select * from tb_resep_detail where no_resep = '$nextID'");
+			$result = mysqli_query($conn, "SELECT * FROM tb_resep_detail");
 			?>
 			<table class="table table-striped table-hover">
 				<thead>

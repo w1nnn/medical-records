@@ -43,6 +43,10 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td>
 								<a href="?page=pendaftaran-pasien&act=edit&no_reg=<?= $data['no_reg']; ?>" class="btn btn-sm bg-info">Edit</a>
 								<a href="?page=pendaftaran-pasien&act=hapus&no_reg=<?= $data['no_reg']; ?>" class="btn btn-sm bg-danger">Delete</a>
+								<form method="post" action="?page=pendaftaran-pasien&act=cetak">
+									<input type="hidden" name="kode_pasien" value="<?= $data['kode_pasien']; ?>">
+									<button type="submit" class="btn btn-sm btn-success my-1">Cetak Kartu</button>
+								</form>
 							</td>
 						</tr>
 					<?php endwhile; ?>

@@ -69,7 +69,6 @@ foreach ($resepArray as $resep) {
     }
 }
 ?>
-<!-- Data Yang Akan Dikirimkan -->
 <?php
 $hargaTot = 0;
 $idObat = [];
@@ -80,6 +79,36 @@ foreach ($items as $item) {
     $hargaTot += $item['totalHarga'];
 }
 ?>
+<style>
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        .invoice-print,
+        .invoice-print * {
+            visibility: visible;
+        }
+
+        .invoice-print {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .invoice {
+            background-color: white;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .btn,
+        .float-lg-left {
+            display: none !important;
+        }
+    }
+</style>
 
 <input type="hidden" value="<?= $order_id; ?>">
 <form id="payment-form" action="" method="POST">
@@ -383,4 +412,6 @@ foreach ($items as $item) {
     };
 
     getTransactionStatus(idOrder);
+
+    window.print();
 </script>

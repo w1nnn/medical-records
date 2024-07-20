@@ -274,7 +274,7 @@
 									<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="bi bi-stack mt-1"></i> <span>Master</span></a>
 									<ul class="dropdown-menu">
 										<li><a class="nav-link" href="?page=pasien">Data Pasien</a></li>
-										<li><a class="nav-link" href="?page=pegawai">Data Pegawai</a></li>
+										<!-- <li><a class="nav-link" href="?page=pegawai">Data Pegawai</a></li> -->
 										<li><a class="nav-link" href="?page=unit-medis">Data Unit Medis</a></li>
 										<li><a class="nav-link" href="?page=obat">Data Obat</a></li>
 									</ul>
@@ -371,6 +371,8 @@
 										include '../hal/kunjungan/proses-hapus.php';
 									} else if ($act == 'simpan') {
 										include '../hal/kunjungan/proses-simpan.php';
+									} else if ($act == 'cetak') {
+										include '../hal/kunjungan/cetak_kartu.php';
 									}
 								} else if ($page == 'resep-dokter') {
 									if ($act == '') {
@@ -381,6 +383,12 @@
 										include '../resep/edit.php';
 									} else if ($act == 'hapus') {
 										include '../resep/hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/resep/proses-simpan.php';
+									} else if ($act == 'tambah') {
+										include '../hal/resep/proses-tambah.php';
+									} else if ($act == 'detail') {
+										include '../hal/resep/detail.php';
 									}
 								} else if ($page == 'rekam-medis') {
 									if ($act == '') {
