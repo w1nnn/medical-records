@@ -20,6 +20,47 @@ include "koneksi/koneksi.php";
 	<!-- Template CSS -->
 	<link rel="stylesheet" href="./assets/css/style.css">
 	<link rel="stylesheet" href="./assets/css/components.css">
+	<style>
+		.header-logo {
+			display: flex;
+			align-items: center;
+		}
+
+		.header-logo img {
+			margin-right: 10px;
+		}
+
+		.header-logo h4 {
+			margin-top: -30px;
+			margin-left: -10px;
+		}
+
+		.sub-heading {
+			font-style: italic;
+			margin-top: -70px;
+			margin-left: 50px;
+		}
+
+		.log {
+			background-color: #8BC6EC;
+			background-image: linear-gradient(91deg, rgba(72, 154, 78, 1) 5.2%, rgba(251, 206, 70, 1) 95.9%);
+			color: #fff;
+		}
+
+		.log:hover {
+			background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
+
+		}
+
+		.gradient-text {
+			background-color: #F4D03F;
+			background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
+
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+		}
+	</style>
 </head>
 
 <body>
@@ -28,9 +69,12 @@ include "koneksi/koneksi.php";
 			<div class="d-flex flex-wrap align-items-stretch">
 				<div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
 					<div class="p-4 m-3">
-						<img src="./assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2">
-						<h4 class="text-dark font-weight-normal">Log<span class="font-weight-bold">in</span></h4>
-						<!-- <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p> -->
+						<div class="header-logo">
+							<img src="./assets/img/logo.png" alt="logo" width="50" class="shadow-light rounded-circle mb-5 mt-2">
+							<h4 class="gradient-text">Kondodewata</h4>
+						</div>
+						<p class="sub-heading">Tana Toraja</p>
+						<h4 class="text-dark  mt-5 font-weight-normal">Log<span class="font-weight-bold">in</span></h4>
 						<form method="POST" action="" class="needs-validation" novalidate="">
 							<div class="form-group">
 								<label for="username">Username</label>
@@ -61,7 +105,7 @@ include "koneksi/koneksi.php";
 								<a href="auth-forgot-password.html" class="float-left mt-3">
 									Forgot Password?
 								</a>
-								<button type="submit" name="submit" class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+								<button type="submit" name="submit" class="btn log btn-lg btn-icon icon-right" tabindex="4">
 									Login
 								</button>
 							</div>
@@ -72,7 +116,7 @@ include "koneksi/koneksi.php";
 						</form>
 
 						<div class="text-center mt-5 text-small">
-							Copyright &copy; Upana Studio. Made with ðŸ’™ by erwin
+							Copyright &copy; Upana Studio. Made with win.dev
 							<div class="mt-2">
 								<a href="#">Privacy Policy</a>
 								<div class="bullet"></div>
@@ -111,7 +155,6 @@ include "koneksi/koneksi.php";
 
 
 <?php
-session_start();
 include "koneksi/koneksi.php";
 
 if (isset($_POST['submit'])) {
@@ -130,7 +173,6 @@ if (isset($_POST['submit'])) {
 		$_SESSION['foto'] = $r['foto'];
 		$nama = $_SESSION['nama'];
 
-		// Redirect based on user level
 		if ($_SESSION['level'] == 'admin') {
 			echo "<script>
                 iziToast.success({
@@ -154,7 +196,6 @@ if (isset($_POST['submit'])) {
                 }, 2000);
             </script>";
 		} else {
-			// Handle unrecognized level here
 			echo "<script>
                 iziToast.warning({
                     title: 'Maaf',
