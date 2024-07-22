@@ -287,8 +287,8 @@
 								<li class="nav-item dropdown">
 									<a href="#" class="nav-link has-dropdown" ata-toggle="dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
 									<ul class="dropdown-menu">
-										<li><a class="nav-link" href="bootstrap-alert.html">Laporan Kunjungan</a></li>
-										<li><a class="nav-link" href="bootstrap-badge.html">Laporan Pasien</a></li>
+										<li><a class="nav-link" href="?page=laporan-kunjungan">Laporan Kunjungan</a></li>
+										<li><a class="nav-link" href="?page=laporan-transaksi">Laporan Transaksi</a></li>
 
 									</ul>
 								</li>
@@ -420,6 +420,18 @@
 									if ($act == '') {
 										include '../hal/kwitansi/req.php';
 									}
+								} else if ($page == 'laporan-kunjungan') {
+									if ($act == '') {
+										include '../hal/laporan_kunjungan/input_laporan.php';
+									} else if ($act == 'cetak') {
+										include '../hal/laporan_kunjungan/cetak_kunjungan.php';
+									}
+								} else if ($page == 'laporan-transaksi') {
+									if ($act == '') {
+										include '../hal/laporan_transaksi/input_laporan.php';
+									} else if ($act == 'cetak') {
+										include '../hal/laporan_transaksi/cetak_kunjungan.php';
+									}
 								} else {
 									include '../hal/home.php';
 								}
@@ -501,6 +513,7 @@
 			<script src="../node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
 			<script src="../assets/js/page/modules-datatables.js"></script>
 			<script src="../assets/js/select2.js"></script>
+
 
 		</body>
 
