@@ -413,5 +413,5 @@ foreach ($items as $item) {
 
     getTransactionStatus(idOrder);
 
-    window.print();
+    // window.print();
 </script>

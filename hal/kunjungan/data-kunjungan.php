@@ -6,7 +6,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 } else {
 
 	include "../../koneksi/koneksi.php";
-	$result = mysqli_query($conn, "SELECT tb_kunjungan.no_reg, tb_kunjungan.tgl_reg, tb_kunjungan.unit_tujuan, tb_kunjungan.kode_pasien, tb_pasien.kode_pasien, tb_pasien.nama_pasien, tb_pasien.jenis_kelamin, tb_pasien.alamat FROM tb_kunjungan, tb_pasien WHERE tb_kunjungan.kode_pasien = tb_pasien.kode_pasien");
+	$result = mysqli_query($conn, "SELECT * FROM tb_kunjungan");
 ?>
 
 	<div class="card-body p-0">
@@ -18,6 +18,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						<th class="text-center">
 							<i class="fas fa-th"></i>
 						</th>
+						<th>Jenis Layanan</th>
 						<th>No. Reg</th>
 						<th>Tgl. Reg</th>
 						<th>Unit Tujuan</th>
@@ -33,6 +34,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					<?php while ($data = mysqli_fetch_array($result)) : ?>
 						<tr>
 							<td><?php echo $no++; ?></td>
+							<td><?php echo $data['jenis_layanan']; ?></td>
 							<td><?php echo $data['no_reg']; ?></td>
 							<td><?php echo $data['tgl_reg']; ?></td>
 							<td><?php echo $data['unit_tujuan']; ?></td>

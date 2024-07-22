@@ -24,6 +24,21 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					$nextNoUrutx = $lastNoUrutx + 1;
 					$nextIDx = "RSP-" . sprintf("%04s", $nextNoUrutx);
 					?>
+					<div class="form-group">
+						<label for="no_rekmed">No. Rekam Medis</label>
+						<select name="no_rekmed" id="no_rekmed" class="form-control" onchange="noRekmed(this.value)" required>
+							<option value="0">-Pilih-</option>
+							<?php
+							include "../../koneksi/koneksi.php";
+							$resul = mysqli_query($conn, "select * from tb_rekmed");
+							$jsArrayz = "var dt_rekmed = new Array();\n";
+							while ($row = mysqli_fetch_array($resul)) {
+								echo '<option value="' . $row['no_rekmed'] . '">' . $row['no_rekmed'] . '</option>';
+								$jsArrayz .= "dt_rekmed['" . $row['no_rekmed'] . "'] = {kode_pasien:'" . addslashes($row['kode_pasien']) . "'};\n";
+							}
+							?>
+						</select>
+					</div>
 					<label for="nomor-resep">No. Resep</label>
 					<input class="form-control" id="nomor-resep" name="no_resep" type="text" value="<?php echo $nextIDx; ?>" readonly>
 					<div class="form-group">
@@ -74,7 +89,10 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						<label for="aturan_pakai">Aturan Pakai</label>
 						<input type="text" name="aturan_pakai" id="aturan_pakai" class="form-control" required>
 					</div>
-
+					<div class="form-group">
+						<label for="tanggal">Tanggal Resep</label>
+						<input type="text" name="tanggal" id="tanggal" class="form-control" value="<?php echo date('Y-m-d'); ?>" readonly>
+					</div>
 					<button type="submit" name="tambah" class="btn btn-primary btn-sm">Tambah</button>
 				</form>
 			</div>
@@ -86,26 +104,15 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					$sql = "SELECT MAX(RIGHT(no_resep,4)) AS terakhir FROM tb_resep";
 					$hasil = mysqli_query($conn, $sql);
 					$data = mysqli_fetch_array($hasil);
-					// $lastID = $data['terakhir'];
-					// $lastNoUrut = (int) $lastID;
-					// $nextNoUrut = $lastNoUrut + 1;
-					// $nextID = "RSP-" . sprintf("%04s", $nextNoUrut);
-					// 
+					$lastID = $data['terakhir'];
+					$lastNoUrut = (int) $lastID;
+					$nextNoUrut = $lastNoUrut + 1;
+					$nextID = "RSP-" . sprintf("%04s", $nextNoUrut);
 					?>
 					<div class="form-group">
-						<label for="no_resep">No. Resep</label>
-						<select name="no_resep" id="no_resep" class="form-control" required>
-							<option value="0">-Pilih-</option>
-							<?php
-							include "../../koneksi/koneksi.php";
-							$resul = mysqli_query($conn, "select * from tb_resep_detail");
-							$jsArray = "var dt_resep = new Array();\n";
-							while ($row = mysqli_fetch_array($resul)) {
-								echo '<option value="' . $row['no_resep'] . '">' . $row['no_resep'] . '</option>';
-								$jsArray .= "dt_resep['" . $row['no_resep'] . "'] = {kode_obat:'" . addslashes($row['kode_obat']) . "',nama_obat:'" . addslashes($row['nama_obat']) . "',jumlah:'" . addslashes($row['jumlah']) . "',aturan_pakai:'" . addslashes($row['aturan_pakai']) . "'};\n";
-							}
-							?>
-						</select>
+						<label for="no_resep">NO. RESEP</label>
+						<input type="text" name="no_resep" class="form-control" value="<?php echo $nextID; ?>" readonly>
+						<!-- <input type="hidden" name="no_resep" value="<?php echo $nextID; ?>"> -->
 					</div>
 
 					<div class="form-group">
@@ -158,7 +165,8 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>No RSesep</th>
+						<th>No Rekam Medis</th>
+						<th>No Resep</th>
 						<th>Kode Obat</th>
 						<th>Nama Obat</th>
 						<th>Qty</th>
@@ -173,6 +181,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					?>
 						<tr>
 							<td><?php echo $no; ?></td>
+							<td><?php echo $data['no_rekmed']; ?></td>
 							<td><?php echo $data['no_resep']; ?></td>
 							<td><?php echo $data['kode_obat']; ?></td>
 							<td><?php echo $data['nama_obat']; ?></td>

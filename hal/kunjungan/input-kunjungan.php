@@ -30,6 +30,14 @@ $result_pasien = mysqli_query($conn, $sql_pasien);
 					</div>
 					<form action="?page=pendaftaran-pasien&act=simpan" method="POST">
 						<div class="form-group">
+							<label>Janis Layanan</label>
+							<select class="form-control" name="jenis_layanan">
+								<option value="">Choose</option>
+								<option value="umum">Umum</option>
+								<option value="bpjs">BPJS</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label>No Registrasi</label>
 							<input name="no_reg" type="text" value="<?= $nextID; ?>" class="form-control" readonly>
 						</div>

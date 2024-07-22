@@ -12,11 +12,13 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
     * {
         box-sizing: border-box;
         font-family: inherit;
+        user-select: none;
     }
 
     @media print {
         body * {
             visibility: hidden;
+            user-select: none;
         }
 
         .container,
@@ -53,7 +55,14 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
         background-color: #74EBD5;
         background-color: #F4D03F;
         box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        transition: transform 0.2s ease-in-out;
     }
+
+    main:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
 
     .green {
         background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
@@ -141,86 +150,90 @@ $query = mysqli_query($conn, "SELECT * FROM tb_kunjungan WHERE kode_pasien = '$k
 
 ?>
 
-<div class="container">
-    <?php while ($data = mysqli_fetch_assoc($query)) : ?>
-        <main class="green">
-            <div class="logo">
-                <img src="../assets/img/k1.png" alt="logo" style="width: 70px;">
-            </div>
-            <div class="flex">
-                <h2>Puskesmas Kondodewata</h2>
-                <table class="mt-3">
-                    <tr>
-                        <td>ID</td>
-                        <td>: <?= $data['kode_pasien']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Nama Pasien</td>
-                        <td>: <?= $data['nama_pasien']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Kelamin</td>
-                        <td>: <?= $data['jenis_kelamin']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td>: <?= $data['alamat']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tanggal Registrasi </td>
-                        <td>: <?= $data['tgl_reg']; ?></td>
-                    </tr>
-                </table>
-            </div>
-            <footer>
-                <h4><?= $data['no_reg']; ?></h4>
-                <h2>
-                    <img src="../assets/img/bpjs.png" alt="BPJS" style="width: 150px;">
-                </h2>
-            </footer>
-        </main>
-        <main class="blue">
-            <div class="logo">
-                <img src="../assets/img/k1.png" alt="logo" style="width: 70px;">
-            </div>
-            <div class="flex">
-                <h2>Puskesmas Kondodewata</h2>
-                <table class="mt-3">
-                    <tr>
-                        <td>ID</td>
-                        <td>: <?= $data['kode_pasien']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Nama Pasien</td>
-                        <td>: <?= $data['nama_pasien']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Kelamin</td>
-                        <td>: <?= $data['jenis_kelamin']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Alamat</td>
-                        <td>: <?= $data['alamat']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tanggal Registrasi </td>
-                        <td>: <?= $data['tgl_reg']; ?></td>
-                    </tr>
-                </table>
-            </div>
-            <footer>
-                <h4><?= $data['no_reg']; ?></h4>
-                <h2>
-                    <svg class="logo" style="margin-top: 200px;" width="39" height="39" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="10" cy="16" r="9" fill="#ff0000" />
-                        <circle cx="22" cy="16" r="9" fill="#ffea00" />
-                        <path d="M16 22.7083C17.8413 21.0603 19 18.6655 19 16C19 13.3345 17.8413 10.9397 16 9.29175C14.1587 10.9397 13 13.3345 13 16C13 18.6655 14.1587 21.0603 16 22.7083Z" fill="#ff8700" />
-                    </svg>
-                </h2>
-            </footer>
-        </main>
-    <?php endwhile; ?>
-</div>
+<?php while ($data = mysqli_fetch_assoc($query)) : ?>
+    <div class="container">
+        <?php if ($data['jenis_layanan'] == 'bpjs') : ?>
+            <main class="green">
+                <div class="logo">
+                    <img src="../assets/img/k1.png" alt="logo" style="width: 70px;">
+                </div>
+                <div class="flex">
+                    <h2>Puskesmas Kondodewata</h2>
+                    <table class="mt-3">
+                        <tr>
+                            <td>ID</td>
+                            <td>: <?= $data['kode_pasien']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Pasien</td>
+                            <td>: <?= $data['nama_pasien']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td>: <?= $data['jenis_kelamin']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>: <?= $data['alamat']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Registrasi </td>
+                            <td>: <?= $data['tgl_reg']; ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <footer>
+                    <h4><?= $data['no_reg']; ?></h4>
+                    <h2>
+                        <img src="../assets/img/bpjs.png" alt="BPJS" style="width: 150px;">
+                    </h2>
+                </footer>
+            </main>
+        <?php else : ?>
+
+            <main class="blue">
+                <div class="logo">
+                    <img src="../assets/img/k1.png" alt="logo" style="width: 70px;">
+                </div>
+                <div class="flex">
+                    <h2>Puskesmas Kondodewata</h2>
+                    <table class="mt-3">
+                        <tr>
+                            <td>ID</td>
+                            <td>: <?= $data['kode_pasien']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Pasien</td>
+                            <td>: <?= $data['nama_pasien']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td>: <?= $data['jenis_kelamin']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td>: <?= $data['alamat']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Registrasi </td>
+                            <td>: <?= $data['tgl_reg']; ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <footer>
+                    <h4><?= $data['no_reg']; ?></h4>
+                    <h2>
+                        <svg class="logo" style="margin-top: 200px;" width="39" height="39" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10" cy="16" r="9" fill="#ff0000" />
+                            <circle cx="22" cy="16" r="9" fill="#ffea00" />
+                            <path d="M16 22.7083C17.8413 21.0603 19 18.6655 19 16C19 13.3345 17.8413 10.9397 16 9.29175C14.1587 10.9397 13 13.3345 13 16C13 18.6655 14.1587 21.0603 16 22.7083Z" fill="#ff8700" />
+                        </svg>
+                    </h2>
+                </footer>
+            </main>
+    </div>
+<?php endif; ?>
+<?php endwhile; ?>
 <script>
     window.print();
 </script>

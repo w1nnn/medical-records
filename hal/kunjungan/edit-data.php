@@ -21,6 +21,7 @@ if (isset($_GET['no_reg'])) {
 		$row_pasien = mysqli_fetch_assoc($result_pasien);
 
 		// Data untuk mengisi form
+		$jenis_layanan = $row_pasien['jenis_layanan'];
 		$no_reg = $row_pasien['no_reg'];
 		$tgl_reg = $row_pasien['tgl_reg'];
 		$unit_tujuan = $row_pasien['unit_tujuan'];
@@ -49,6 +50,14 @@ if (isset($_GET['no_reg'])) {
 						<b>Form</b> Edit Data Pendaftaran Pasien
 					</div>
 					<form action="?page=pendaftaran-pasien&act=simpan" method="POST">
+						<div class="form-group">
+							<label>Janis Layanan</label>
+							<select class="form-control" name="jenis_layanan">
+								<option value="">Choose</option>
+								<option value="umum" <?= ($jenis_layanan == 'umum') ? 'selected' : ''; ?>>Umum</option>
+								<option value="bpjs" <?= ($jenis_layanan == 'bpjs') ? 'selected' : ''; ?>>BPJS</option>
+							</select>
+						</div>
 						<div class="form-group">
 							<label>No Registrasi</label>
 							<input name="no_reg" type="text" value="<?= $no_reg; ?>" class="form-control" readonly>
