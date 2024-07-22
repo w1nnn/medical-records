@@ -95,7 +95,6 @@ include "koneksi/koneksi.php";
 		</section>
 	</div>
 
-	<!-- General JS Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -103,62 +102,83 @@ include "koneksi/koneksi.php";
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<script src="../assets/js/stisla.js"></script>
 
-	<!-- JS Libraies -->
-
-	<!-- Template JS File -->
 	<script src="./assets/js/scripts.js"></script>
 	<script src="./assets/js/custom.js"></script>
 	<script src="./node_modules/izitoast/dist/js/iziToast.min.js"></script>
-	<!-- Page Specific JS File -->
 </body>
 
 </html>
 
 
 <?php
+session_start();
+include "koneksi/koneksi.php";
+
 if (isset($_POST['submit'])) {
 	$username = $_POST['username'];
 	$pass     = $_POST['password'];
 
-	// Perhatikan penggunaan mysqli_* untuk koneksi dan query
 	$login = mysqli_query($conn, "SELECT * FROM tb_login WHERE username = '$username' AND password = '$pass'");
 	$ketemu = mysqli_num_rows($login);
 	$r = mysqli_fetch_array($login);
 
-	// Apabila username dan password ditemukan
 	if ($ketemu > 0) {
-
 		$_SESSION['username'] = $r['username'];
 		$_SESSION['password'] = $r['password'];
 		$_SESSION['nama'] = $r['nama'];
 		$_SESSION['level'] = $r['level'];
 		$_SESSION['foto'] = $r['foto'];
 		$nama = $_SESSION['nama'];
-		echo "<script>
-		iziToast.success({
-            title: 'Selamat Datang',
-            message: '$nama',
-            position: 'topRight'
-          });
-          setTimeout(function(){
-            window.location.href = 'hal/dashboard.php';
-          }, 2000);
-        </script>";
+
+		// Redirect based on user level
+		if ($_SESSION['level'] == 'admin') {
+			echo "<script>
+                iziToast.success({
+                    title: 'Selamat Datang',
+                    message: '$nama',
+                    position: 'topRight'
+                });
+                setTimeout(function(){
+                    window.location.href = 'hal/dashboard.php';
+                }, 2000);
+            </script>";
+		} elseif ($_SESSION['level'] == 'kepus') {
+			echo "<script>
+                iziToast.success({
+                    title: 'Selamat Datang',
+                    message: '$nama',
+                    position: 'topRight'
+                });
+                setTimeout(function(){
+                    window.location.href = 'kepala_puskesmas/dashboard.php';
+                }, 2000);
+            </script>";
+		} else {
+			// Handle unrecognized level here
+			echo "<script>
+                iziToast.warning({
+                    title: 'Maaf',
+                    message: 'Level pengguna tidak dikenali!',
+                    position: 'topRight'
+                });
+            </script>";
+		}
 	} else if (empty($username) || empty($pass)) {
 		echo "<script>
-        iziToast.warning({
-            title: 'Maaf',
-            message: 'Username atau Password Tidak Boleh Kosong!',
-            position: 'topRight'
-          });
+            iziToast.warning({
+                title: 'Maaf',
+                message: 'Username atau Password Tidak Boleh Kosong!',
+                position: 'topRight'
+            });
         </script>";
 	} else {
 		echo "<script>
-        iziToast.warning({
-            title: 'Maaf',
-            message: 'Username atau Password Salah!',
-            position: 'topRight'
-          });
+            iziToast.warning({
+                title: 'Maaf',
+                message: 'Username atau Password Salah!',
+                position: 'topRight'
+            });
         </script>";
 	}
 }
+?>
