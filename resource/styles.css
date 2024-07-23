@@ -53,13 +53,17 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .nav__logo {
-  font-size: 1.5rem;
+  font-size: 18px;
   font-weight: 600;
   color: var(--primary-color);
+}
+.title-logo {
+  margin-left: -210px;
+  font-weight: bold;
 }
 
 .nav__links {
@@ -120,7 +124,6 @@ nav {
   height: 450px;
   width: 450px;
   background-image: radial-gradient( circle 311px at 8.6% 27.9%,  rgba(62,147,252,0.57) 12.9%, rgba(239,183,192,0.44) 91.2% );
-
   border-radius: 100%;
   z-index: -1;
 }
@@ -147,6 +150,9 @@ nav {
 .image__content__1 {
   transform: translate(calc(-50% - 12rem), calc(-50% - 8rem));
 }
+.image__content__1:hover {
+  cursor: pointer;
+}
 
 .image__content__1 span {
   padding: 10px 12px;
@@ -168,6 +174,10 @@ nav {
 
 .image__content__2 {
   transform: translate(calc(-50% + 8rem), calc(-50% + 10rem));
+}
+
+.image__content__2:hover {
+  cursor: pointer;
 }
 
 .image__content__2 ul {

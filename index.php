@@ -13,14 +13,16 @@
 <body>
     <div class="container">
         <nav>
-            <div class="nav__logo">Rekam Medis | Kondodewata</div>
+            <div class="nav__logo">
+                <img src="./assets/img/kemenkes.png" width="35" alt="">
+                <img src="./assets/img/logo.png" width="35" alt="">
+            </div>
+            <span class="title-logo">Rekam Medis | Kondodewata</span>
             <ul class="nav__links">
-                <li class="link"><a href="#">Home</a></li>
-                <li class="link"><a href="#">About Us</a></li>
-                <li class="link"><a href="#">Courses</a></li>
-                <li class="link"><a href="#">Pages</a></li>
-                <li class="link"><a href="#">Blog</a></li>
-                <li class="link"><a href="#">Contact</a></li>
+                <li class="link"><a href="#">Beranda</a></li>
+                <li class="link"><a href="#">Tentang Kami</a></li>
+                <li class="link"><a href="#">Produk</a></li>
+                <li class="link"><a href="#">Kontak</a></li>
             </ul>
             <a href="./login.php">
                 <button class="btn btn-sm">Login</button>

@@ -43,19 +43,21 @@ include "koneksi/koneksi.php";
 		}
 
 		.log {
-			background-color: #8BC6EC;
-			background-image: linear-gradient(91deg, rgba(72, 154, 78, 1) 5.2%, rgba(251, 206, 70, 1) 95.9%);
-			color: #fff;
+			background-color: #8EC5FC;
+			background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
 		}
 
 		.log:hover {
-			background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
+			background-color: #D9AFD9;
+			background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+
 
 		}
 
 		.gradient-text {
-			background-color: #F4D03F;
-			background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
+			background-color: #0093E9;
+			background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 
 			-webkit-background-clip: text;
 			background-clip: text;

@@ -202,13 +202,13 @@ foreach ($items as $item) {
                     </div>
                     <div class="row mt-4">
                         <div class="col-lg-8">
-                            <div class="section-title">Jenis Metode Pemabayaran</div>
+                            <!-- <div class="section-title">Jenis Metode Pemabayaran</div> -->
                             <div class="d-flex">
-                                <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
+                                <!-- <div class="mr-2 bg-visa" data-width="61" data-height="38"></div>
                                 <div class="mr-2 bg-jcb" data-width="61" data-height="38"></div>
                                 <div class="mr-2 bg-mastercard" data-width="61" data-height="38"></div>
                                 <div class="bg-paypal" data-width="61" data-height="38"></div>
-                                <img style="margin-left: 5px; margin-top: -3px;" src="../assets/img/bpjs.png" alt="">
+                                <img style="margin-left: 5px; margin-top: -3px;" src="../assets/img/bpjs.png" alt=""> -->
                             </div>
                         </div>
                         <div class="col-lg-4 text-right">
@@ -290,6 +290,7 @@ foreach ($items as $item) {
                                     },
                                     body: JSON.stringify({
                                         order_id: result.order_id,
+                                        tanggal: result.transaction_time,
                                         id_obat: <?= json_encode($idObat); ?>,
                                         harga: <?= json_encode($hargaTot); ?>,
                                         stok: <?= json_encode($stokUpdate); ?>,
@@ -325,6 +326,7 @@ foreach ($items as $item) {
                                     },
                                     body: JSON.stringify({
                                         order_id: result.order_id,
+                                        tanggal: result.transaction_time,
                                         id_obat: <?= json_encode($idObat); ?>,
                                         harga: <?= json_encode($hargaTot); ?>,
                                         stok: <?= json_encode($stokUpdate); ?>,
@@ -396,6 +398,7 @@ foreach ($items as $item) {
             }
 
             const data = await response.json();
+            console.log("Transaction status:", data);
             const statusTransaksi = data.transaction_status == 'settlement' ? 'Lunas' : 'Belum Lunas';
             document.querySelector('#order_id').innerHTML = data.order_id;
             document.querySelector('#order-date').innerHTML = data.transaction_time;

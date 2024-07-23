@@ -11,8 +11,9 @@ if (isset($data['order_id']) && isset($data['id_kwitansi'])) {
     $stok = $data['stok'];
     $id_obat = $data['id_obat'];
     $status = $data['status'];
+    $tanggal = $data['tanggal'];
 
-    $sql = "UPDATE tb_kwitansi SET order_id = '$order_id', harga = '$harga', sts = '$status'  WHERE id_kwitansi = '$id_kwitansi'";
+    $sql = "UPDATE tb_kwitansi SET order_id = '$order_id', harga = '$harga', sts = '$status', tanggal = '$tanggal'  WHERE id_kwitansi = '$id_kwitansi'";
 
     if (mysqli_query($conn, $sql)) {
         echo json_encode(['status' => 'success', 'message' => 'Order ID updated successfully']);
