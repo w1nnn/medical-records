@@ -43,14 +43,13 @@ include "koneksi/koneksi.php";
 		}
 
 		.log {
-			background-color: #8EC5FC;
-			background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+			background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
 
 		}
 
 		.log:hover {
 			background-color: #D9AFD9;
-			background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+			background-image: linear-gradient(91deg, rgba(72, 154, 78, 1) 5.2%, rgba(251, 206, 70, 1) 95.9%);
 
 
 		}

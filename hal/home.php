@@ -218,13 +218,13 @@ function rupiah($angka)
                 <div class="card-icon">
                     <i class="far bi bi-currency-dollar"></i>
                 </div>
-                <h4> <?php
+                <h3> <?php
                         $totalBayar = 0;
                         while ($transaksi = mysqli_fetch_array($dataTransaksi)) {
                             $totalBayar += $transaksi['harga'];
                         }
                         echo rupiah($totalBayar);
-                        ?></h4>
+                        ?></h3>
                 <div class="card-description">Jumlah Transaksi</div>
             </div>
             <div class="card-body p-0">

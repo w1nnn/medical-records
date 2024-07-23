@@ -14,20 +14,42 @@ function getCurrentDate()
 	return date("Y-m-d", mktime(date("m"), date("d"), date("Y")));
 }
 
-// Ini Yang diapakai
-$dataRekmed = [];
 $jenisLayanan = mysqli_query($conn, "SELECT * FROM tb_kunjungan WHERE jenis_layanan = 'umum'");
-while ($row = mysqli_fetch_assoc($jenisLayanan)) {
-	$rekamMedis = mysqli_query($conn, "SELECT no_rekmed, kode_pasien, diagnosa, keterangan FROM tb_rekmed WHERE kode_pasien = '" . $row['kode_pasien'] . "'");
-	while ($rekamMedisRow = mysqli_fetch_assoc($rekamMedis)) {
-		$dataRekmed[] = [
-			'no_rekmed' => $rekamMedisRow['no_rekmed'],
-			'kode_pasien' => $rekamMedisRow['kode_pasien'],
-			'diagnosa' => $rekamMedisRow['diagnosa'],
-			'keterangan' => $rekamMedisRow['keterangan']
-		];
-	}
+$jenisLayananRow = mysqli_fetch_array($jenisLayanan);
+foreach ($jenisLayanan as $row) {
+	$jenisLayanan = $row['kode_pasien'];
+	$rekamMedis = mysqli_query($conn, "SELECT * FROM tb_rekmed WHERE kode_pasien = '$jenisLayanan'");
+	$rekamMedisRow = mysqli_fetch_array($rekamMedis);
+	$noRekamMedis = $rekamMedisRow['no_rekmed'];
+	var_dump($noRekamMedis);
 }
+
+function generateOptions($conn, $tableName, $idField, $valueField)
+{
+	$options = "";
+	$result = mysqli_query($conn, "SELECT * FROM $tableName");
+	while ($row = mysqli_fetch_array($result)) {
+		$rekmed = $row[$idField];
+		$rekmed_result = mysqli_query($conn, "SELECT no_rekmed, kode_pasien, diagnosa, keterangan FROM tb_rekmed WHERE no_rekmed = '$rekmed'");
+		$rekmed_row = mysqli_fetch_array($rekmed_result);
+		$no_rekmed = $rekmed_row['no_rekmed'] ?? '';
+		$kode_pasien = $rekmed_row['kode_pasien'] ?? '';
+		$diagnosa = $rekmed_row['diagnosa'] ?? '';
+		$keterangan = $rekmed_row['keterangan'] ?? '';
+
+		$options .= '<option value="' . $row[$idField] . '" 
+                     data-no-rekmed="' . addslashes($no_rekmed) . '"
+                     data-kode-pasien="' . addslashes($kode_pasien) . '"
+                     data-nama="' . addslashes($row['nama_pasien']) . '" 
+                     data-telp="' . addslashes($row['telpon']) . '"
+                     data-email="' . addslashes($row['email']) . '"
+                     data-diagnosa="' . addslashes($diagnosa) . '"
+                     data-keterangan="' . addslashes($keterangan) . '">' . $row[$valueField] . '</option>';
+	}
+	return $options;
+}
+
+$tglsekarang = getCurrentDate();
 ?>
 
 <form action="?page=transaksi&act=save" method="POST">
@@ -41,15 +63,14 @@ while ($row = mysqli_fetch_assoc($jenisLayanan)) {
 
 					<div class="form-group">
 						<label>No. Rekam Medis</label>
-						<select class="form-control" name="no_rekmed" id="no_rekmed">
+						<select class="form-control" name="kode_pasien" id="kode_pasien">
 							<option>Choose</option>
-							<?php foreach ($dataRekmed as $rekmed) : ?>
-								<option value="<?= $rekmed['no_rekmed'] ?>" data-kode-pasien="<?= $rekmed['kode_pasien'] ?>" data-diagnosa="<?= $rekmed['diagnosa'] ?>" data-keterangan="<?= $rekmed['keterangan'] ?>"><?= $rekmed['no_rekmed'] ?></option>
-							<?php endforeach; ?>
+							<?= generateOptions($conn, "tb_rekmed", "no_rekmed", "no_rekmed"); ?>
 						</select>
 					</div>
 					<div class="form-group">
-						<input name="no_rekmed" id="no_rekmed_input" type="hidden" class="form-control" readonly>
+						<!-- <label>No Rekam Medis</label> -->
+						<input name="no_rekmed" id="no_rekmed" type="hidden" class="form-control" readonly>
 					</div>
 					<div class="form-group">
 						<label>Kode Pasien</label>
@@ -90,20 +111,21 @@ while ($row = mysqli_fetch_assoc($jenisLayanan)) {
 </form>
 
 <script>
-	document.getElementById('no_rekmed').addEventListener('change', async function() {
+	document.getElementById('kode_pasien').addEventListener('change', async function() {
 		const selectedOption = this.options[this.selectedIndex];
-		const noRekmed = selectedOption.value;
+		const noRekmed = selectedOption.getAttribute('data-no-rekmed');
 		const kodePasien = selectedOption.getAttribute('data-kode-pasien');
-		const diagnosa = selectedOption.getAttribute('data-diagnosa');
-		const keterangan = selectedOption.getAttribute('data-keterangan');
 
-		document.getElementById('no_rekmed_input').value = noRekmed;
+		document.getElementById('nama_pasien').value = selectedOption.getAttribute('data-nama');
+		document.getElementById('telpon').value = selectedOption.getAttribute('data-telp');
+		document.getElementById('email').value = selectedOption.getAttribute('data-email');
+		document.getElementById('no_rekmed').value = noRekmed;
 		document.getElementById('kode_pasien_input').value = kodePasien;
-		document.getElementById('diagnosa').value = diagnosa;
-		document.getElementById('keterangan').value = keterangan;
+		document.getElementById('diagnosa').value = selectedOption.getAttribute('data-diagnosa');
+		document.getElementById('keterangan').value = selectedOption.getAttribute('data-keterangan');
 
 		try {
-			const resepResponse = await fetch('../hal/kwitansi/fetch-resep.php', {
+			const response = await fetch('../hal/kwitansi/fetch-resep.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -113,32 +135,12 @@ while ($row = mysqli_fetch_assoc($jenisLayanan)) {
 				})
 			});
 
-			const resepData = await resepResponse.json();
-			console.log(resepData);
-			if (resepData.resep) {
-				document.getElementById('resep').value = resepData.resep.join(', ');
-			} else if (resepData.error) {
-				console.error('Error:', resepData.error);
-			}
-
-			const pasienResponse = await fetch('../hal/kwitansi/fetch_pasien.php', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					kode_pasien: kodePasien
-				})
-			});
-
-			const pasienData = await pasienResponse.json();
-			console.log(pasienData);
-			if (pasienData.nama_pasien) {
-				document.getElementById('nama_pasien').value = pasienData.nama_pasien;
-				document.getElementById('telpon').value = pasienData.telpon;
-				document.getElementById('email').value = pasienData.email;
-			} else if (pasienData.error) {
-				console.error('Error:', pasienData.error);
+			const data = await response.json();
+			console.log(data);
+			if (data.resep) {
+				document.getElementById('resep').value = data.resep.join(', ');
+			} else if (data.error) {
+				console.error('Error:', data.error);
 			}
 		} catch (error) {
 			console.error('Error fetching data:', error);
