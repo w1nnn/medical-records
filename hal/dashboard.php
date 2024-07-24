@@ -446,7 +446,7 @@
 									if ($act == '') {
 										include '../hal/laporan_transaksi/input_laporan.php';
 									} else if ($act == 'cetak') {
-										include '../hal/laporan_transaksi/cetak_kunjungan.php';
+										include '../hal/laporan_transaksi/cetak_transaksi.php';
 									}
 								} else {
 									include '../hal/home.php';
