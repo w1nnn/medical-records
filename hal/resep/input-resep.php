@@ -136,7 +136,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 					<div class="d-flex justify-content-end">
 						<button type="submit" name="simpan" class="btn btn-sm btn-primary mx-2">Simpan</button>
 						<a href="?page=resep-dokter" class="btn btn-sm btn-info" style="margin-right: 5px;">Selesai</a>
-						<button type="reset" name="batal" class="btn btn-danger btn-sm">Batal</button>
+						<!-- <button type="reset" name="batal" class="btn btn-danger btn-sm">Batal</button> -->
 					</div>
 				</form>
 			</div>

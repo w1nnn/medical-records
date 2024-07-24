@@ -11,19 +11,39 @@ if (isset($_POST['simpan'])) {
     $keterangan = $_POST['keterangan'];
     $resep = $_POST['no_resep'];
 
-    $query = "INSERT INTO tb_kwitansi (kode_pasien, nama_pasien, telepon, email, no_rekam_medis, diagnosa, keterangan, no_resep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($query);
+    // Periksa apakah data dengan no_rekmed yang sama sudah ada
+    $checkQuery = "SELECT COUNT(*) FROM tb_kwitansi WHERE no_rekam_medis = ?";
+    $checkStmt = $conn->prepare($checkQuery);
+    if ($checkStmt) {
+        $checkStmt->bind_param("s", $noRekmed);
+        $checkStmt->execute();
+        $checkStmt->bind_result($count);
+        $checkStmt->fetch();
+        $checkStmt->close();
 
-    if ($stmt) {
-        $stmt->bind_param("ssssssss", $kodePasien, $namaPasien, $telpon, $email, $noRekmed, $diagnosa, $keterangan, $resep);
-
-        if ($stmt->execute()) {
-            echo "<script language='javascript'>alert('Data berhasil ditambahkan'); window.location = '?page=transaksi'</script>";
+        if ($count > 0) {
+            echo "<script language='javascript'>alert('Data dengan nomor rekam medis ini sudah ada.'); window.location = '?page=transaksi'</script>";
         } else {
-            echo "<script language='javascript'>alert('Data gagal ditambahkan: " . $stmt->error . "'); window.location = '?page=transaksi'</script>";
+            $query = "INSERT INTO tb_kwitansi (kode_pasien, nama_pasien, telepon, email, no_rekam_medis, diagnosa, keterangan, no_resep) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt) {
+                $stmt->bind_param("ssssssss", $kodePasien, $namaPasien, $telpon, $email, $noRekmed, $diagnosa, $keterangan, $resep);
+
+                if ($stmt->execute()) {
+                    echo "<script language='javascript'>alert('Data berhasil ditambahkan'); window.location = '?page=transaksi'</script>";
+                } else {
+                    echo "<script language='javascript'>alert('Data gagal ditambahkan: " . $stmt->error . "'); window.location = '?page=transaksi'</script>";
+                }
+                $stmt->close();
+            } else {
+                echo "<script language='javascript'>alert('Gagal mempersiapkan statement: " . $conn->error . "'); window.location = '?page=transaksi'</script>";
+            }
         }
-        $stmt->close();
     } else {
         echo "<script language='javascript'>alert('Gagal mempersiapkan statement: " . $conn->error . "'); window.location = '?page=transaksi'</script>";
     }
 }
+?>
+
+?>

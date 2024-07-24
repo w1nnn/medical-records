@@ -180,6 +180,22 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 				$harga = $obat['harga'];
 				$typeFarmasi = $obat['type_farmasi'];
 
+				// Periksa apakah data dengan nie yang sama sudah ada
+				$checkStmt = $conn->prepare("SELECT COUNT(*) FROM tb_obat WHERE kfa = ?");
+				$checkStmt->bind_param("s", $kfa);
+				$checkStmt->execute();
+				$checkStmt->bind_result($count);
+				$checkStmt->fetch();
+				$checkStmt->close();
+
+				if ($count > 0) {
+					echo "<script>
+					alert('Data obat dengan kode $kfa sudah ada, tidak akan disimpan ulang.');
+					window.location = '?page=obat';
+					</script>";
+					continue;
+				}
+
 				$stmt = $conn->prepare("INSERT INTO tb_obat (nama_produk, detail_produk, bentuk, zat_aktif, nie, kfa, manufaktur, tipe_farmasi) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 				$stmt->bind_param("ssssssss", $nama_produk, $detail_produk, $bentuk, $zat_aktif, $nie, $kfa, $manufaktur, $typeFarmasi);
 				if ($stmt->execute()) {
@@ -193,6 +209,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 					window.location = '?page=obat';
 					</script>";
 				}
+				$stmt->close();
 			}
 		} else {
 			echo "<script>alert('Pilih setidaknya satu obat untuk disimpan');</script>";

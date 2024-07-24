@@ -2,7 +2,7 @@
 session_start();
 if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
     echo "<script language='javascript'>alert('Login terlebih dahulu untuk melakukan konten manajemen'); window.location = '../../index.php'</script>";
-    exit; // Exiting to prevent further execution
+    exit;
 } else {
     include "../../koneksi/koneksi.php";
 
