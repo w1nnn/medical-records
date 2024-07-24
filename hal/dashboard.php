@@ -283,6 +283,7 @@
 								<li><a class="nav-link" href="?page=pendaftaran-pasien"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
 								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Dokter</span></a></li>
 								<li><a class="nav-link" href="?page=rekam-medis"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
+								<li><a class="nav-link" href="?page=bpjs"><i class="bi bi-card-text mt-1"></i> <span>BPJS</span></a></li>
 								<li><a class="nav-link" href="?page=transaksi"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
 								<li class="menu-header"></li>
 								<li class="nav-item dropdown">
@@ -402,6 +403,20 @@
 										include '../hal/rekammedis/proses-hapus.php';
 									} else if ($act == 'simpan') {
 										include '../hal/rekammedis/proses-simpan.php';
+									}
+								} else if ($page == 'bpjs') {
+									if ($act == '') {
+										include '../hal/bpjs/data.php';
+									} else if ($act == 'add') {
+										include '../hal/bpjs/input_bpjs.php';
+									} else if ($act == 'edit') {
+										include '../hal/bpjs/edit_data.php';
+									} else if ($act == 'del') {
+										include '../hal/bpjs/proses_hapus.php';
+									} else if ($act == 'simpan') {
+										include '../hal/bpjs/proses_simpan.php';
+									} else if ($act == 'detail') {
+										include '../hal/bpjs/detail.php';
 									}
 								} else if ($page == 'transaksi') {
 									if ($act == '') {
