@@ -53,8 +53,8 @@
 								<li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
 							</ul>
 							<div class="search-element">
-								<input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="border-radius:  0 0 0 20px;">
-								<button class="btn" type="submit" style="border-radius: 0 20px 0 0;"><i class="fas fa-search"></i></button>
+								<!-- <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="250" style="border-radius:  0 0 0 20px;"> -->
+								<!-- <button class="btn" type="submit" style="border-radius: 0 20px 0 0;"><i class="fas fa-search"></i></button> -->
 								<div class="search-backdrop"></div>
 								<div class="search-result">
 									<div class="search-header">
@@ -116,7 +116,7 @@
 							</div>
 						</form>
 						<ul class="navbar-nav navbar-right">
-							<li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
+							<!-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link nav-link-lg message-toggle beep"><i class="far fa-envelope"></i></a>
 								<div class="dropdown-menu dropdown-list dropdown-menu-right">
 									<div class="dropdown-header">Messages
 										<div class="float-right">
@@ -190,24 +190,7 @@
 										</div>
 									</div>
 									<div class="dropdown-list-content dropdown-list-icons">
-										<a href="#" class="dropdown-item dropdown-item-unread">
-											<div class="dropdown-item-icon bg-primary text-white">
-												<i class="fas fa-code"></i>
-											</div>
-											<div class="dropdown-item-desc">
-												Template update is available now!
-												<div class="time text-primary">2 Min Ago</div>
-											</div>
-										</a>
-										<a href="#" class="dropdown-item">
-											<div class="dropdown-item-icon bg-info text-white">
-												<i class="far fa-user"></i>
-											</div>
-											<div class="dropdown-item-desc">
-												<b>You</b> and <b>Dedik Sugiharto</b> are now friends
-												<div class="time">10 Hours Ago</div>
-											</div>
-										</a>
+
 										<a href="#" class="dropdown-item">
 											<div class="dropdown-item-icon bg-success text-white">
 												<i class="fas fa-check"></i>
@@ -217,30 +200,12 @@
 												<div class="time">12 Hours Ago</div>
 											</div>
 										</a>
-										<a href="#" class="dropdown-item">
-											<div class="dropdown-item-icon bg-danger text-white">
-												<i class="fas fa-exclamation-triangle"></i>
-											</div>
-											<div class="dropdown-item-desc">
-												Low disk space. Let's clean it!
-												<div class="time">17 Hours Ago</div>
-											</div>
-										</a>
-										<a href="#" class="dropdown-item">
-											<div class="dropdown-item-icon bg-info text-white">
-												<i class="fas fa-bell"></i>
-											</div>
-											<div class="dropdown-item-desc">
-												Welcome to Stisla template!
-												<div class="time">Yesterday</div>
-											</div>
-										</a>
 									</div>
 									<div class="dropdown-footer text-center">
 										<a href="#">View All <i class="fas fa-chevron-right"></i></a>
 									</div>
 								</div>
-							</li>
+							</li> -->
 							<li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
 									<img alt="image" src="../assets/img/<?= $foto; ?>" class="rounded-circle mr-1" style="height: 30px; width: 30px;">
 									<div class="d-sm-none d-lg-inline-block">Hi, <?= $nama; ?></div>
@@ -430,7 +395,7 @@
 									if ($act == '') {
 										include '../hal/laporan_transaksi/input_laporan.php';
 									} else if ($act == 'cetak') {
-										include '../hal/laporan_transaksi/cetak_kunjungan.php';
+										include '../hal/laporan_transaksi/cetak_transaksi.php';
 									}
 								} else {
 									include '../hal/home.php';
