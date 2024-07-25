@@ -19,10 +19,10 @@
             </div>
             <span class="title-logo">Rekam Medis | Kondodewata</span>
             <ul class="nav__links">
-                <li class="link"><a href="#">Beranda</a></li>
-                <li class="link"><a href="#">Tentang Kami</a></li>
+                <!-- <li class="link"><a href="#">Beranda</a></li> -->
+                <!-- <li class="link"><a href="#">Tentang Kami</a></li>
                 <li class="link"><a href="#">Produk</a></li>
-                <li class="link"><a href="#">Kontak</a></li>
+                <li class="link"><a href="#">Kontak</a></li> -->
             </ul>
             <a href="./login.php">
                 <button class="btn btn-sm">Login</button>

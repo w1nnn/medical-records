@@ -16,22 +16,26 @@
 
 .btn {
   width: 100px;
-  height: 50px;
-  padding: 1rem 2rem;
+  height: auto;
+  padding: 12px 0;
   outline: none;
   border: none;
-  font-size: 1rem;
+  font-size: 14px;
   color: var(--white);
   background-color: #8ec5fc;
-  background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+  background-color: #f4d03f;
+  background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
+
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .btn:hover {
-  background-color: #d9afd9;
-  background-image: linear-gradient(0deg, #d9afd9 0%, #97d9e1 100%);
+  background-image: linear-gradient(
+    129.1deg,
+    rgba(243, 199, 83, 1) 26.8%,
+    rgba(18, 235, 207, 1) 114.1%
+  );
 }
 
 body {
@@ -62,7 +66,7 @@ nav {
 }
 
 .title-logo {
-  margin-left: -210px;
+  margin-left: -390px;
   font-weight: bold;
 }
 
@@ -91,6 +95,10 @@ nav {
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   align-items: center;
+}
+
+.content {
+  margin-top: -90px;
 }
 
 .content h1 {
@@ -123,10 +131,15 @@ nav {
   transform: translate(-50%, -50%);
   height: 450px;
   width: 450px;
-  background-image: radial-gradient(
-    circle 311px at 8.6% 27.9%,
-    rgba(62, 147, 252, 0.57) 12.9%,
-    rgba(239, 183, 192, 0.44) 91.2%
+  background-image: linear-gradient(
+    180deg,
+    #e6ff99 0,
+    #ceff9b 16.67%,
+    #b5ff9d 33.33%,
+    #9df29d 50%,
+    #86e49d 66.67%,
+    #72d89d 83.33%,
+    #60ce9e 100%
   );
   border-radius: 100%;
   z-index: -1;

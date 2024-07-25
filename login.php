@@ -55,8 +55,9 @@ include "koneksi/koneksi.php";
 		}
 
 		.gradient-text {
-			background-color: #0093E9;
-			background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+			background-color: #F4D03F;
+			background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
+
 
 			-webkit-background-clip: text;
 			background-clip: text;
