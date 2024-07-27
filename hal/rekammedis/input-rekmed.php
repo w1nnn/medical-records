@@ -80,7 +80,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						</div>
 						<div class="form-group">
 							<label for="keterangan">Keterangan</label>
-							<input name="keterangan" type="text" class="form-control" value="">
+							<input name="keterangan" type="text" class="form-control" value="" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="tanggal">Tgl. Rekam Medis</label>

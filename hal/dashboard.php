@@ -324,7 +324,9 @@
 									} else if ($act == 'edit') {
 										include '../resep/edit.php';
 									} else if ($act == 'hapus') {
-										include '../resep/hapus.php';
+										include '../hal/resep/proses-hapus.php';
+									} else if ($act == 'del') {
+										include '../hal/resep/delete.php';
 									} else if ($act == 'simpan') {
 										include '../hal/resep/proses-simpan.php';
 									} else if ($act == 'tambah') {

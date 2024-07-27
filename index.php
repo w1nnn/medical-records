@@ -16,6 +16,7 @@
             <div class="nav__logo">
                 <img src="./assets/img/kemenkes.png" width="35" alt="">
                 <img src="./assets/img/logo.png" width="35" alt="">
+                <img src="./assets/img/toraja.png" width="30" alt="">
             </div>
             <span class="title-logo">Rekam Medis | Kondodewata</span>
             <ul class="nav__links">
@@ -38,7 +39,7 @@
             </div>
             <div class="image">
                 <span class="image__bg"></span>
-                <img style="margin-top: 60px;" src="resource/foto.png" alt="header image" />
+                <img style="margin-top: 5px;" src="resource/dokter.png" alt="header image" />
                 <div class="image__content image__content__1">
                     <span><i class="ri-user-3-line"></i></span>
                     <div class="details">

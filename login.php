@@ -43,18 +43,34 @@ include "koneksi/koneksi.php";
 		}
 
 		.log {
-			background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
+			color: #fff;
+			background-color: #D9AFD9;
+			background-image: linear-gradient(91deg, rgba(72, 154, 78, 1) 5.2%, rgba(251, 206, 70, 1) 95.9%);
 
 		}
 
 		.log:hover {
-			background-color: #D9AFD9;
-			background-image: linear-gradient(91deg, rgba(72, 154, 78, 1) 5.2%, rgba(251, 206, 70, 1) 95.9%);
+			background-image: linear-gradient(68.6deg, rgba(79, 183, 131, 1) 14.4%, rgba(254, 235, 151, 1) 92.7%);
 
 
 		}
 
 		.gradient-text {
+
+			background-image: linear-gradient(73.1deg, rgba(34, 126, 34, 1) 8%, rgba(99, 162, 17, 1) 86.9%);
+
+
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+		}
+
+		.bg {
+			background-size: cover;
+			background-position: center;
+		}
+
+		.sub-text {
 			background-color: #F4D03F;
 			background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
 
@@ -105,7 +121,7 @@ include "koneksi/koneksi.php";
 							</div>
 
 							<div class="form-group text-right">
-								<a href="auth-forgot-password.html" class="float-left mt-3">
+								<a href="#" class="float-left mt-3">
 									Forgot Password?
 								</a>
 								<button type="submit" name="submit" class="btn log btn-lg btn-icon icon-right" tabindex="4">
@@ -114,7 +130,7 @@ include "koneksi/koneksi.php";
 							</div>
 
 							<div class="mt-5 text-center">
-								Don't have an account? <a href="auth-register.html">Create new one</a>
+								Don't have an account? <a href="">Create new one</a>
 							</div>
 						</form>
 
@@ -128,12 +144,12 @@ include "koneksi/koneksi.php";
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative overlay-gradient-bottom" data-background="./assets/img/unsplash/login-bg.jpg">
+				<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative bg overlay-gradient-bottom" data-background="./resource/dede.jpeg">
 					<div class="absolute-bottom-left index-2">
 						<div class="text-light p-5 pb-2">
 							<div class="mb-5 pb-3">
 								<h1 class="mb-2 display-4 font-weight-bold">Sistem Informasi Rekam Medis</h1>
-								<h5 class="font-weight-normal text-muted-transparent">Puskesmas Kondo Dewata, Tana Toraja</h5>
+								<!-- <h5 class="font-weight-normal sub-text text-muted-transparent">Puskesmas Kondo Dewata, Tana Toraja</h5> -->
 							</div>
 						</div>
 					</div>

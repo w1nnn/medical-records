@@ -179,7 +179,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 							<td><?php echo $data['jumlah']; ?></td>
 							<td><?php echo $data['aturan_pakai']; ?></td>
 							<td>
-								<center><a href="proses-hapus.php?id=<?php echo $data['id_resep']; ?>" onclick="return confirm('Apakah Anda Yakin Menghapus Data?')">Hapus</a></center>
+								<a class="btn btn-sm btn-danger" href="?page=resep-dokter&act=del&no_resep=<?= $data['no_resep']; ?>">Hapus</a>
 							</td>
 						</tr>
 					<?php

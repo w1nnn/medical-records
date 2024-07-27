@@ -64,7 +64,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 						</div>
 						<div class="form-group">
 							<label>Email</label>
-							<input name="email" type="text" class="form-control">
+							<input name="email" type="text" class="form-control" value="faskeskondodewata@gmail.com">
 						</div>
 						<div class="card-footer text-right">
 							<button name="simpan" type="submit" class="btn btn-primary mr-1">Simpan</button>

@@ -66,7 +66,7 @@ nav {
 }
 
 .title-logo {
-  margin-left: -390px;
+  margin-left: -370px;
   font-weight: bold;
 }
 
@@ -141,13 +141,20 @@ nav {
     #72d89d 83.33%,
     #60ce9e 100%
   );
-  border-radius: 100%;
+  border-radius: 50%;
   z-index: -1;
 }
 
+.image {
+  position: relative;
+  display: inline-block;
+}
+
 .image img {
-  width: 100%;
-  max-width: 475px;
+  width: 450px;
+  height: 450px;
+  object-fit: cover;
+  clip-path: circle(50%);
 }
 
 .image__content {

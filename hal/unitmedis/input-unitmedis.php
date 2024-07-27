@@ -28,7 +28,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 				<div class="card">
 					<div class="card-body">
 						<div class="alert" style="background-color: #8BC6EC;background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);">
-							<b>Form</b> Tambah Data Pasien
+							<b>Form</b> Tambah Data Unit Medis
 						</div>
 						<div class="form-group">
 							<label>id Unit Medis</label>
