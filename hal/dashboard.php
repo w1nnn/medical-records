@@ -216,16 +216,15 @@
 									<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="bi bi-stack mt-1"></i> <span>Master</span></a>
 									<ul class="dropdown-menu">
 										<li><a class="nav-link" href="?page=pasien">Data Pasien</a></li>
-										<!-- <li><a class="nav-link" href="?page=pegawai">Data Pegawai</a></li> -->
 										<li><a class="nav-link" href="?page=unit-medis">Data Unit Medis</a></li>
 										<li><a class="nav-link" href="?page=obat">Data Obat</a></li>
 									</ul>
 								</li>
-								<li><a class="nav-link" href="?page=pendaftaran-pasien"><i class="bi bi-clipboard-plus-fill mt-1"></i> <span>Pendaftaran Berobat</span></a></li>
-								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Dokter</span></a></li>
+								<li><a class="nav-link" href="?page=pendaftaran-pasien"><i class="bi bi-card-checklist mt-1"></i> <span>Kartu Medis</span></a></li>
 								<li><a class="nav-link" href="?page=rekam-medis"><i class="bi bi-pencil-square mt-1"></i> <span>Rekam Medis</span></a></li>
+								<li><a class="nav-link" href="?page=resep-dokter"><i class="bi bi-person-fill-check mt-1"></i> <span>Resep Dokter</span></a></li>
 								<li><a class="nav-link" href="?page=bpjs"><i class="bi bi-card-text mt-1"></i> <span>BPJS</span></a></li>
-								<li><a class="nav-link" href="?page=transaksi"><i class="bi bi-cart-check-fill mt-1"></i> <span>Transaksi</span></a></li>
+								<li><a class="nav-link" href="?page=transaksi"><i class="bi bi-cart-check-fill mt-1"></i> <span>Umum</span></a></li>
 								<li class="menu-header"></li>
 								<li class="nav-item dropdown">
 									<a href="#" class="nav-link has-dropdown" ata-toggle="dropdown"><i class="fas fa-th"></i> <span>Laporan</span></a>
