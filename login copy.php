@@ -22,10 +22,6 @@ include "koneksi/koneksi.php";
 	<link rel="stylesheet" href="./assets/css/style.css">
 	<link rel="stylesheet" href="./assets/css/components.css">
 	<style>
-		body {
-			overflow: hidden;
-		}
-
 		.header-logo {
 			display: flex;
 			align-items: center;
@@ -69,49 +65,19 @@ include "koneksi/koneksi.php";
 			color: transparent;
 		}
 
-		/* .bg {
+		.bg {
 			background-size: cover;
 			background-position: center;
-		} */
-
-		.text {
-			/* background-color: #fff; */
-			color: #fff;
-			font-weight: bold;
-
 		}
 
-		/* .bg {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 800px;
-			height: 533px;
-		} */
+		.sub-text {
+			background-color: #F4D03F;
+			background-image: linear-gradient(132deg, #F4D03F 0%, #16A085 100%);
 
-		.imageBox {
-			position: absolute;
-			top: 0;
-			left: 0;
-			/* background-size: cover;
-			background-position: center;
-			width: 100%; */
-		}
 
-		/* .imageBox img {
-			background-size: cover;
-			background-position: center;
-		} */
-
-		.imageAfter {
-			width: 0;
-			transition: 2s;
-			overflow: hidden;
-		}
-
-		.bg:hover .imageAfter {
-			width: 100%;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
 		}
 	</style>
 </head>
@@ -178,18 +144,12 @@ include "koneksi/koneksi.php";
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative bg overlay-gradient-bottom">
-					<div class="imageBox imageBefore">
-						<img src="./resource/dede.jpeg" alt="" width="1100">
-					</div>
-					<div class="imageBox imageAfter">
-						<img src="./resource/pp.jpeg" alt="" width="1250">
-					</div>
+				<div class="col-lg-8 col-12 order-lg-2 order-1 min-vh-100 background-walk-y position-relative bg overlay-gradient-bottom" data-background="./resource/dede.jpeg">
 					<div class="absolute-bottom-left index-2">
 						<div class="text-light p-5 pb-2">
 							<div class="mb-5 pb-3">
-								<h1 class="mb-2 text display-4 font-weight-bold">Sistem Informasi Rekam Medis</h1>
-								<h5 class="font-weight-normal text sub-text text-muted-transparent">UPT Puskesmas Kondo Dewata, Tana Toraja</h5>
+								<h1 class="mb-2 display-4 font-weight-bold">Sistem Informasi Rekam Medis</h1>
+								<!-- <h5 class="font-weight-normal sub-text text-muted-transparent">Puskesmas Kondo Dewata, Tana Toraja</h5> -->
 							</div>
 						</div>
 					</div>
