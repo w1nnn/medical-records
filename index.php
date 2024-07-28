@@ -25,9 +25,13 @@
                 <li class="link"><a href="#">Produk</a></li>
                 <li class="link"><a href="#">Kontak</a></li> -->
             </ul>
-            <a href="./login.php">
-                <button class="btn btn-sm">Login</button>
-            </a>
+            <div class="wrapper">
+                <a class="link" href="./login.php">
+                    <div class="color"></div>
+                    <span>Login</span>
+
+                </a>
+            </div>
         </nav>
         <header class="header">
             <div class="content">
@@ -62,6 +66,35 @@
             </div>
         </header>
     </div>
+    <script src="./node_modules/gsap/dist/gsap.min.js"></script>
+    <script>
+        let link = document.querySelector(".link");
+        let pink = document.querySelector(".color");
+
+        let hoverTL = gsap.timeline();
+        hoverTL.pause();
+
+        // from, to, fromTo Tweens
+        hoverTL.to(pink, {
+            width: "calc(100% + 1.3em)",
+            ease: "Elastic.easeOut(0.25)",
+            duration: 0.4
+        });
+        hoverTL.to(pink, {
+            width: "2em",
+            left: "calc(100% - 1.45em)",
+            ease: "Elastic.easeOut(0.4)",
+            duration: 0.6
+        });
+
+        link.addEventListener("mouseenter", () => {
+            hoverTL.play();
+        });
+
+        link.addEventListener("mouseleave", () => {
+            hoverTL.reverse();
+        });
+    </script>
 </body>
 
 </html>
