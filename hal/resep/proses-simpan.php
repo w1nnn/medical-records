@@ -26,29 +26,26 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
             $checkStmt->fetch();
             $checkStmt->close();
 
-            if ($count > 0) {
-                echo "<script>window.alert('Data dengan nomor rekam medis ini sudah ada.')
+            echo "<script>window.alert('Data dengan nomor rekam medis ini sudah ada.')
                 window.location='?page=resep-dokter&act=add'</script>";
-            } else {
-                $query = "INSERT INTO tb_resep (no_resep, no_rekmed, tanggal) VALUES (?, ?, ?)";
-                $stmt = $conn->prepare($query);
+            $query = "INSERT INTO tb_resep (no_resep, no_rekmed, tanggal) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($query);
 
-                if ($stmt) {
-                    $stmt->bind_param("sss", $no_resep, $no_rekmed, $tanggal);
-                    $simpan = $stmt->execute();
-                    $stmt->close();
+            if ($stmt) {
+                $stmt->bind_param("sss", $no_resep, $no_rekmed, $tanggal);
+                $simpan = $stmt->execute();
+                $stmt->close();
 
-                    if ($simpan) {
-                        echo "<script>window.alert('Data Sudah Tersimpan')
+                if ($simpan) {
+                    echo "<script>window.alert('Data Sudah Tersimpan')
                         window.location='?page=resep-dokter&act=add'</script>";
-                    } else {
-                        echo "<script>window.alert('Data GAGAL disimpan!')
-                        window.location='?page=resep-dokter&act=add'</script>";
-                    }
                 } else {
-                    echo "<script>window.alert('Gagal menyiapkan query.')
-                    window.location='?page=resep-dokter'</script>";
+                    echo "<script>window.alert('Data GAGAL disimpan!')
+                        window.location='?page=resep-dokter&act=add'</script>";
                 }
+            } else {
+                echo "<script>window.alert('Gagal menyiapkan query.')
+                    window.location='?page=resep-dokter'</script>";
             }
         } else {
             echo "<script>window.alert('Gagal menyiapkan query.')
