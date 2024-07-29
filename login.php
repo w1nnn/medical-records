@@ -150,13 +150,13 @@ include "koneksi/koneksi.php";
 							<div class="form-group">
 								<div class="custom-control custom-checkbox">
 									<input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-									<label class="custom-control-label" for="remember-me">Remember Me</label>
+									<label class="custom-control-label" for="remember-me">Ingat saya</label>
 								</div>
 							</div>
 
 							<div class="form-group text-right">
 								<a href="#" class="float-left mt-3">
-									Forgot Password?
+									Lupa kata sandi?
 								</a>
 								<button type="submit" name="submit" class="btn log btn-lg btn-icon icon-right" tabindex="4">
 									Login
@@ -164,16 +164,16 @@ include "koneksi/koneksi.php";
 							</div>
 
 							<div class="mt-5 text-center">
-								Don't have an account? <a href="">Create new one</a>
+								Belum punya akun? <a href="">Buat akun baru</a>
 							</div>
 						</form>
 
 						<div class="text-center mt-5 text-small">
-							Copyright &copy; Upana Studio. Made with win.dev
+							Hak cipta &copy; Upana Studio. dibuat oleh win.dev
 							<div class="mt-2">
-								<a href="#">Privacy Policy</a>
+								<a href="https://www.checkpoint.com/cyber-hub/cyber-security/what-is-it-security/it-security-policy/">Kebijakan pribadi</a>
 								<div class="bullet"></div>
-								<a href="#">Terms of Service</a>
+								<a href="https://www.checkpoint.com/cyber-hub/cyber-security/what-is-it-security/it-security-policy/">Ketentuan layanan</a>
 							</div>
 						</div>
 					</div>
