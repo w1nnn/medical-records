@@ -1,64 +1,64 @@
-# Rekam Medis Puskesmas Kododewata
+# Medical Records Application for Puskesmas Kododewata
 
-## Deskripsi
-Aplikasi ini dirancang untuk memudahkan Puskesmas Kododewata dalam mengelola rekam medis pasien. Dengan fitur-fitur yang intuitif dan efisien, aplikasi ini membantu staf kesehatan dalam mencatat, mengakses, dan mengelola informasi rekam medis secara digital. Pengguna dapat dengan mudah melakukan pencarian data, memperbarui informasi, dan mengelola transaksi terkait pelayanan kesehatan.
+## Description
+This application is designed to facilitate Puskesmas Kododewata in managing patient medical records. With intuitive and efficient features, this application helps healthcare staff to record, access, and manage medical record information digitally. Users can easily search for data, update information, and manage transactions related to healthcare services.
 
-## Fitur
+## Features
 
-### 1. Halaman Utama
-Halaman utama memberikan gambaran umum tentang aplikasi. Di sini, pengguna dapat menemukan informasi penting dan navigasi ke bagian lain dari aplikasi.
+### 1. Home Page
+The home page provides an overview of the application. Here, users can find important information and navigate to other sections of the application.
 
-- **Deskripsi Singkat**: Menjelaskan tujuan aplikasi.
-- **Navigasi**: Tautan ke halaman login dan informasi lebih lanjut.
+- **Brief Description**: Explains the purpose of the application.
+- **Navigation**: Links to the login page and further information.
 
-![Screenshot 2024-08-02 125742](https://github.com/user-attachments/assets/a923eda2-3a0c-4d69-8d26-11fdbb187490)
+![Home Page Screenshot](https://github.com/user-attachments/assets/a923eda2-3a0c-4d69-8d26-11fdbb187490)
 
-### 2. Halaman Login
-Halaman login memungkinkan pengguna untuk masuk ke akun mereka.
+### 2. Login Page
+The login page allows users to sign in to their accounts.
 
-- **Formulir Login**:
-  - **Email**: Kolom untuk memasukkan alamat email.
-  - **Kata Sandi**: Kolom untuk memasukkan kata sandi.
-  - **Tombol Login**: Untuk mengautentikasi pengguna.
-- **Tautan Pendaftaran**: Arahkan pengguna ke halaman pendaftaran jika mereka belum memiliki akun.
+- **Login Form**:
+  - **Username**: Field for entering the username.
+  - **Password**: Field for entering the password.
+  - **Login Button**: To authenticate the user.
+- **Registration Link**: Directs users to the registration page if they do not have an account.
 
-![Screenshot 2024-08-02 125806](https://github.com/user-attachments/assets/538e27cd-1240-434a-822d-fae2288e858f)
+![Login Page Screenshot](https://github.com/user-attachments/assets/538e27cd-1240-434a-822d-fae2288e858f)
 
 ### 3. Dashboard
-Setelah berhasil login, pengguna akan diarahkan ke dashboard mereka.
+After successfully logging in, users will be directed to their dashboard.
 
-- **Ringkasan Rekam Medis**: Menampilkan total rekam medis, statistik pasien, dan aktivitas terkini.
-- **Grafik**: Visualisasi data rekam medis dalam bentuk grafik.
-- **Navigasi**: Tautan ke halaman transaksi dan pengaturan akun.
+- **Medical Record Summary**: Displays the total medical records, patient statistics, medications, medical units, and recent transactions.
+- **Navigation**: Links to the transaction page and account settings.
 
-![Screenshot 2024-08-02 125707](https://github.com/user-attachments/assets/e8232e46-4024-44b3-b6fa-86a4e5e92ce2)
+![Dashboard Screenshot](https://github.com/user-attachments/assets/e8232e46-4024-44b3-b6fa-86a4e5e92ce2)
 
-### 4. Kartu Medis
-Kartu Medis berfungsi sebagai catatan terintegrasi yang menyimpan informasi penting mengenai setiap pasien. Melalui Kartu Medis, staf kesehatan dapat dengan mudah mengakses riwayat medis, diagnosa, pengobatan, dan kunjungan pasien sebelumnya.
+### 4. Medical Card
+The Medical Card serves as an integrated record that stores important information about each patient. Through the Medical Card, healthcare staff can easily access medical history, diagnoses, treatments, and previous patient visits.
 
-![Screenshot 2024-08-02 131129](https://github.com/user-attachments/assets/98034e9f-1022-4a92-9090-9fafe1f7c5aa)
+![Medical Card Screenshot](https://github.com/user-attachments/assets/98034e9f-1022-4a92-9090-9fafe1f7c5aa)
 
-### 5. Halaman Transaksi
-Halaman transaksi memungkinkan pengguna untuk melihat dan mengelola transaksi yang terkait dengan pelayanan kesehatan.
+### 5. Transaction Page
+The transaction page allows users to view and manage transactions related to healthcare services.
 
-- **Daftar Transaksi**: Tabel yang menampilkan semua transaksi dengan informasi seperti tanggal, deskripsi, jumlah, dan kategori.
-- **Tambah Transaksi**: Formulir untuk menambahkan transaksi baru.
-- **Edit dan Hapus**: Opsi untuk mengedit atau menghapus transaksi yang sudah ada.
+- **Transaction List**: A table displaying all transactions with information such as date, description, amount, and category.
+- **Add Transaction**: A form to add a new transaction.
+- **Edit and Delete**: Options to edit or delete existing transactions.
 
-![Screenshot 2024-08-02 131356](https://github.com/user-attachments/assets/21a90923-beeb-47d5-8786-c06a006459bd)
+![Transaction Page Screenshot](https://github.com/user-attachments/assets/21a90923-beeb-47d5-8786-c06a006459bd)
 
-### 6. Laporan
-Laporan memberikan ringkasan dan analisis data rekam medis dan transaksi. Pengguna dapat menghasilkan laporan berdasarkan kriteria tertentu, seperti periode waktu, jenis pelayanan, dan statistik pasien. Hal ini membantu Puskesmas Kododewata dalam melakukan evaluasi kinerja dan perencanaan strategi pelayanan kesehatan yang lebih baik.
+### 6. Reports
+Reports provide a summary and analysis of medical record and transaction data. Users can generate reports based on specific criteria, such as time periods, types of services, and patient statistics. This helps Puskesmas Kododewata evaluate performance and plan better healthcare service strategies.
 
-![Screenshot 2024-08-02 131859](https://github.com/user-attachments/assets/40249223-6f87-4ccc-a630-942fccf1439e)
+![Reports Screenshot](https://github.com/user-attachments/assets/40249223-6f87-4ccc-a630-942fccf1439e)
 
-## Teknologi yang Digunakan
+## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: PHP
 - **Database**: MySQL
-- **Autentikasi**: JWT (JSON Web Tokens)
+- **Authentication**: JWT (JSON Web Tokens)
+- **Payment Gateway**: Midtrans Service
+- **API**: Satu Sehat
   
-
 ## Instalasi
 
 1. Clone repositori ini:
@@ -67,7 +67,7 @@ Laporan memberikan ringkasan dan analisis data rekam medis dan transaksi. Penggu
 2. Import Database:
    ```bash
    mysql -u <username> -p <database-name> < /path/to/file.sql
-3. Jalankan Server:
+3. Run Server:
  ```bash
  php -S localhost:8000
 
