@@ -63,10 +63,10 @@ Reports provide a summary and analysis of medical record and transaction data. U
 
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/w1nnn/medical-record.git
+   git clone https://github.com/w1nnn/medical-records.git
 2. Import Database:
    ```bash
-   mysql -u <username> -p <database-name> < /path/to/file.sql
+   mysql -u <username> -p <medical_records> < /path/to/file.sql
 3. Run Server:
  ```bash
  php -S localhost:8000
