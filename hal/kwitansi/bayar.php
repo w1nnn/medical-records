@@ -226,7 +226,7 @@ foreach ($items as $item) {
         <div class="text-md-right">
             <div class="float-lg-left mb-lg-0 mb-3">
                 <?php if ($order_id == '-') : ?>
-                    <button type="submit" id="pay" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
+                    <button type="submit" id="pay" class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Proses Pembayaran</button>
                 <?php endif; ?>
                 <a href="?page=transaksi" class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</a>
             </div>

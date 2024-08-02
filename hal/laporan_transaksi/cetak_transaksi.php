@@ -13,20 +13,58 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
 
         .card-body {
             visibility: visible;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .card-body {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            margin: auto;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            margin: 0 50px;
+        }
+
+        .header h3 {
+            margin: 0;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .company-info {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .company-info .address {
+            margin: 5px 0;
+        }
+
+        hr {
+            border: 1px solid #e0e0e0;
+            margin: 20px 0;
         }
     </style>
     <div class="card-body p-0">
-        <h3 class="text-center mb-4">Laporan Transaksi</h3>
+        <div class="header">
+            <img src="../assets/img/logo.png" alt="logo" class="img-fluid" width="100" height="100">
+            <h3 class="text-center mb-4">Laporan Transaksi</h3>
+            <img src="../assets/img/toraja.png" alt="logo" class="img-fluid" width="80" height="100">
+        </div>
+        <div class="company-info">
+            <p>Nama Perusahaan</p>
+            <p class="address">Alamat: Kondodewata, Mappak, Kabupaten Tana Toraja, Sulawesi Selatan</p>
+            <p>Kode Pos: 91873</p>
+        </div>
+        <hr>
         <?php
         if (isset($_POST['tahun'])) {
             $tahun = $_POST['tahun'];
@@ -37,7 +75,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo '<table class="table table-hover table-striped"';
+                echo '<table class="table table-hover table-striped">';
                 echo '<thead class="table-light">';
                 echo '<tr>';
                 echo '<th class="text-center"><i class="fas fa-th"></i></th>';
@@ -71,13 +109,12 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
             $bulang = date('m', strtotime($bulan));
 
             $stmt = $conn->prepare("SELECT * FROM tb_kwitansi WHERE MONTH(STR_TO_DATE(tanggal, '%Y-%m-%d %H:%i:%s')) = ?");
-
             $stmt->bind_param('s', $bulang);
             $stmt->execute();
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo '<table class="table table-hover table-striped"';
+                echo '<table class="table table-hover table-striped">';
                 echo '<thead class="table-light">';
                 echo '<tr>';
                 echo '<th class="text-center"><i class="fas fa-th"></i></th>';
@@ -116,7 +153,7 @@ if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo '<table class="table table-hover table-striped"';
+                echo '<table class="table table-hover table-striped">';
                 echo '<thead class="table-light">';
                 echo '<tr>';
                 echo '<th class="text-center"><i class="fas fa-th"></i></th>';

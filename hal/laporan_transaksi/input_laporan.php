@@ -65,7 +65,7 @@
                             $years = range(2001, $currentYear);
                             $years = array_reverse($years);
                             ?>
-                            <option>Select Year</option>
+                            <option>Pilih Tahun</option>
                             <?php foreach ($years as $year) : ?>
                                 <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                             <?php endforeach; ?>
