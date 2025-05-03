@@ -46,11 +46,6 @@ The transaction page allows users to view and manage transactions related to hea
 
 ![Transaction Page Screenshot](https://github.com/user-attachments/assets/21a90923-beeb-47d5-8786-c06a006459bd)
 
-### 6. Reports
-Reports provide a summary and analysis of medical record and transaction data. Users can generate reports based on specific criteria, such as time periods, types of services, and patient statistics. This helps Puskesmas Kododewata evaluate performance and plan better healthcare service strategies.
-
-![Reports Screenshot](https://github.com/user-attachments/assets/40249223-6f87-4ccc-a630-942fccf1439e)
-
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: PHP
@@ -58,17 +53,6 @@ Reports provide a summary and analysis of medical record and transaction data. U
 - **Authentication**: JWT (JSON Web Tokens)
 - **Payment Gateway**: Midtrans Service
 - **API**: Satu Sehat
-  
-## Instalasi
 
-1. Clone repositori ini:
-   ```bash
-   git clone https://github.com/w1nnn/medical-records.git
-2. Import Database:
-   ```bash
-   mysql -u <username> -p <medical_records> < /path/to/file.sql
-3. Run Server:
- ```bash
- php -S localhost:8000
 
 
